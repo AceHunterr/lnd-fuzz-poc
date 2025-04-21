@@ -1,0 +1,6 @@
+[submodule "lnd"]
+	path = lnd
+	url = https://github.com/lightningnetwork/lnd.git
+[submodule "lnd-fuzz"]
+	path = lnd-fuzz
+	url = https://github.com/lightninglabs/lnd-fuzz.git
