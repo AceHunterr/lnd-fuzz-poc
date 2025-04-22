@@ -1,0 +1,1069 @@
+=== Fuzzing FuzzRandomActOne in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/16 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 16/16 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 36958 (12316/sec), new interesting: 2 (total: 18)
+fuzz: elapsed: 6s, execs: 66584 (9875/sec), new interesting: 4 (total: 20)
+fuzz: elapsed: 9s, execs: 84952 (6124/sec), new interesting: 4 (total: 20)
+fuzz: elapsed: 10s, execs: 91812 (6143/sec), new interesting: 5 (total: 21)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	10.178s
+=== Fuzzing FuzzRandomActThree in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/8 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 8/8 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 14763 (4920/sec), new interesting: 3 (total: 11)
+fuzz: elapsed: 6s, execs: 32080 (5772/sec), new interesting: 9 (total: 17)
+fuzz: elapsed: 9s, execs: 58930 (8950/sec), new interesting: 15 (total: 23)
+fuzz: elapsed: 11s, execs: 64550 (2552/sec), new interesting: 16 (total: 24)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.258s
+=== Fuzzing FuzzRandomActTwo in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/30 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 30/30 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 18723 (6168/sec), new interesting: 11 (total: 41)
+fuzz: elapsed: 6s, execs: 58017 (13114/sec), new interesting: 13 (total: 43)
+fuzz: elapsed: 9s, execs: 84084 (8677/sec), new interesting: 18 (total: 48)
+fuzz: elapsed: 10s, execs: 86554 (1705/sec), new interesting: 18 (total: 48)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	10.552s
+=== Fuzzing FuzzRandomInitDecrypt in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/51 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 51/51 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 1555 (511/sec), new interesting: 10 (total: 61)
+fuzz: elapsed: 6s, execs: 8966 (2470/sec), new interesting: 19 (total: 70)
+fuzz: elapsed: 9s, execs: 18001 (3057/sec), new interesting: 20 (total: 71)
+fuzz: elapsed: 10s, execs: 21158 (2854/sec), new interesting: 21 (total: 72)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	10.187s
+=== Fuzzing FuzzRandomInitEncDec in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/44 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 44/44 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 6044 (1995/sec), new interesting: 11 (total: 55)
+fuzz: elapsed: 6s, execs: 8994 (983/sec), new interesting: 12 (total: 56)
+fuzz: elapsed: 9s, execs: 10207 (404/sec), new interesting: 13 (total: 57)
+fuzz: elapsed: 11s, execs: 10353 (69/sec), new interesting: 13 (total: 57)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.217s
+=== Fuzzing FuzzRandomInitEncrypt in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/57 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 57/57 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 1783 (585/sec), new interesting: 6 (total: 63)
+fuzz: elapsed: 6s, execs: 3826 (680/sec), new interesting: 9 (total: 66)
+fuzz: elapsed: 9s, execs: 5808 (662/sec), new interesting: 9 (total: 66)
+fuzz: elapsed: 11s, execs: 6457 (322/sec), new interesting: 10 (total: 67)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.146s
+=== Fuzzing FuzzRandomRespDecrypt in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/53 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 53/53 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 1701 (566/sec), new interesting: 7 (total: 60)
+fuzz: elapsed: 6s, execs: 4881 (1061/sec), new interesting: 15 (total: 68)
+fuzz: elapsed: 9s, execs: 7977 (1032/sec), new interesting: 16 (total: 69)
+fuzz: elapsed: 10s, execs: 9044 (893/sec), new interesting: 16 (total: 69)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	10.273s
+=== Fuzzing FuzzRandomRespEncDec in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/48 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 48/48 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 1891 (624/sec), new interesting: 13 (total: 61)
+fuzz: elapsed: 6s, execs: 5007 (1039/sec), new interesting: 17 (total: 65)
+fuzz: elapsed: 9s, execs: 7292 (761/sec), new interesting: 18 (total: 66)
+fuzz: elapsed: 11s, execs: 7867 (283/sec), new interesting: 18 (total: 66)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.143s
+=== Fuzzing FuzzRandomRespEncrypt in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/49 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 49/49 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 1984 (660/sec), new interesting: 9 (total: 58)
+fuzz: elapsed: 6s, execs: 4282 (766/sec), new interesting: 12 (total: 61)
+fuzz: elapsed: 9s, execs: 5965 (561/sec), new interesting: 14 (total: 63)
+fuzz: elapsed: 11s, execs: 6444 (238/sec), new interesting: 16 (total: 65)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.097s
+=== Fuzzing FuzzStaticActOne in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/7 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 7/7 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 27129 (9009/sec), new interesting: 2 (total: 9)
+fuzz: elapsed: 6s, execs: 66318 (13062/sec), new interesting: 4 (total: 11)
+fuzz: elapsed: 9s, execs: 92374 (8686/sec), new interesting: 4 (total: 11)
+fuzz: elapsed: 10s, execs: 101380 (8045/sec), new interesting: 4 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	10.185s
+=== Fuzzing FuzzStaticActThree in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/5 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 5/5 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 35297 (11765/sec), new interesting: 0 (total: 5)
+fuzz: elapsed: 6s, execs: 86672 (17124/sec), new interesting: 0 (total: 5)
+fuzz: elapsed: 9s, execs: 140904 (18078/sec), new interesting: 0 (total: 5)
+fuzz: elapsed: 11s, execs: 159723 (9347/sec), new interesting: 0 (total: 5)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.080s
+=== Fuzzing FuzzStaticActTwo in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/10 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 10/10 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 29878 (9798/sec), new interesting: 1 (total: 11)
+fuzz: elapsed: 6s, execs: 48233 (6148/sec), new interesting: 1 (total: 11)
+fuzz: elapsed: 9s, execs: 66442 (6070/sec), new interesting: 1 (total: 11)
+fuzz: elapsed: 10s, execs: 72689 (5549/sec), new interesting: 1 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	10.244s
+=== Fuzzing FuzzStaticInitDecrypt in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/5 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 5/5 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 1100 (360/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 6s, execs: 9625 (2890/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 9s, execs: 16401 (2260/sec), new interesting: 2 (total: 7)
+fuzz: elapsed: 10s, execs: 17744 (1236/sec), new interesting: 2 (total: 7)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	10.188s
+=== Fuzzing FuzzStaticInitEncDec in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/6 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 6/6 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 5199 (1733/sec), new interesting: 2 (total: 8)
+fuzz: elapsed: 6s, execs: 7306 (694/sec), new interesting: 2 (total: 8)
+fuzz: elapsed: 9s, execs: 7825 (173/sec), new interesting: 2 (total: 8)
+fuzz: elapsed: 11s, execs: 7902 (37/sec), new interesting: 2 (total: 8)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.206s
+=== Fuzzing FuzzStaticInitEncrypt in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/8 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 8/8 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 2419 (788/sec), new interesting: 3 (total: 11)
+fuzz: elapsed: 6s, execs: 4514 (698/sec), new interesting: 3 (total: 11)
+fuzz: elapsed: 9s, execs: 5819 (435/sec), new interesting: 3 (total: 11)
+fuzz: elapsed: 11s, execs: 6184 (181/sec), new interesting: 3 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.182s
+=== Fuzzing FuzzStaticRespDecrypt in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/7 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 7/7 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 1048 (341/sec), new interesting: 2 (total: 9)
+fuzz: elapsed: 6s, execs: 5643 (1571/sec), new interesting: 2 (total: 9)
+fuzz: elapsed: 9s, execs: 9341 (1233/sec), new interesting: 2 (total: 9)
+fuzz: elapsed: 11s, execs: 10286 (453/sec), new interesting: 2 (total: 9)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.237s
+=== Fuzzing FuzzStaticRespEncDec in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/5 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 5/5 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 458 (153/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 6s, execs: 1183 (242/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 9s, execs: 1944 (254/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 10s, execs: 2182 (219/sec), new interesting: 1 (total: 6)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	10.379s
+=== Fuzzing FuzzStaticRespEncrypt in ./brontide for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/7 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 7/7 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 574 (191/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 6s, execs: 1300 (242/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 9s, execs: 2119 (273/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 11s, execs: 2386 (127/sec), new interesting: 1 (total: 8)
+PASS
+ok  	github.com/lightningnetwork/lnd/brontide	11.412s
+=== Fuzzing FuzzHtlcAuxBlobEncodeDecode in ./contractcourt for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/20 completed
+fuzz: elapsed: 2s, gathering baseline coverage: 20/20 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 1000 (325/sec), new interesting: 0 (total: 20)
+fuzz: elapsed: 6s, execs: 2173 (391/sec), new interesting: 0 (total: 20)
+fuzz: elapsed: 9s, execs: 2946 (258/sec), new interesting: 0 (total: 20)
+fuzz: elapsed: 11s, execs: 3061 (55/sec), new interesting: 0 (total: 20)
+PASS
+ok  	github.com/lightningnetwork/lnd/contractcourt	18.665s
+=== Fuzzing FuzzHopData in ./htlcswitch/hop for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/8 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 8/8 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 35199 (11732/sec), new interesting: 1 (total: 9)
+fuzz: elapsed: 6s, execs: 78030 (14263/sec), new interesting: 1 (total: 9)
+fuzz: elapsed: 9s, execs: 119660 (13888/sec), new interesting: 1 (total: 9)
+fuzz: elapsed: 10s, execs: 132724 (10913/sec), new interesting: 1 (total: 9)
+PASS
+ok  	github.com/lightningnetwork/lnd/htlcswitch/hop	10.274s
+=== Fuzzing FuzzHopPayload in ./htlcswitch/hop for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/21 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 21/21 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 47932 (15952/sec), new interesting: 1 (total: 22)
+fuzz: elapsed: 6s, execs: 60602 (4224/sec), new interesting: 1 (total: 22)
+fuzz: elapsed: 9s, execs: 62267 (554/sec), new interesting: 1 (total: 22)
+fuzz: elapsed: 11s, execs: 62267 (0/sec), new interesting: 1 (total: 22)
+PASS
+ok  	github.com/lightningnetwork/lnd/htlcswitch/hop	11.163s
+=== Fuzzing FuzzOnionPacket in ./htlcswitch/hop for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/4 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 4/4 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 49729 (16433/sec), new interesting: 3 (total: 7)
+fuzz: elapsed: 6s, execs: 60844 (3703/sec), new interesting: 6 (total: 10)
+fuzz: elapsed: 9s, execs: 65408 (1522/sec), new interesting: 6 (total: 10)
+fuzz: elapsed: 11s, execs: 67010 (724/sec), new interesting: 6 (total: 10)
+PASS
+ok  	github.com/lightningnetwork/lnd/htlcswitch/hop	11.287s
+=== Fuzzing FuzzPayloadFinalBlinding in ./htlcswitch/hop for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/67 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 67/67 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 14772 (4923/sec), new interesting: 1 (total: 68)
+fuzz: elapsed: 6s, execs: 26785 (4005/sec), new interesting: 6 (total: 73)
+fuzz: elapsed: 9s, execs: 33198 (2137/sec), new interesting: 6 (total: 73)
+fuzz: elapsed: 11s, execs: 34042 (399/sec), new interesting: 6 (total: 73)
+PASS
+ok  	github.com/lightningnetwork/lnd/htlcswitch/hop	11.302s
+=== Fuzzing FuzzPayloadFinalNoBlinding in ./htlcswitch/hop for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/64 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 64/64 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 17712 (5902/sec), new interesting: 5 (total: 69)
+fuzz: elapsed: 6s, execs: 27739 (3342/sec), new interesting: 9 (total: 73)
+fuzz: elapsed: 9s, execs: 29994 (752/sec), new interesting: 10 (total: 74)
+fuzz: elapsed: 11s, execs: 30016 (10/sec), new interesting: 10 (total: 74)
+PASS
+ok  	github.com/lightningnetwork/lnd/htlcswitch/hop	11.253s
+=== Fuzzing FuzzPayloadIntermediateBlinding in ./htlcswitch/hop for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/62 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 62/62 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 24774 (8115/sec), new interesting: 7 (total: 69)
+fuzz: elapsed: 6s, execs: 49091 (8105/sec), new interesting: 10 (total: 72)
+fuzz: elapsed: 9s, execs: 58454 (3121/sec), new interesting: 10 (total: 72)
+fuzz: elapsed: 11s, execs: 71261 (6031/sec), new interesting: 11 (total: 73)
+PASS
+ok  	github.com/lightningnetwork/lnd/htlcswitch/hop	11.334s
+=== Fuzzing FuzzPayloadIntermediateNoBlinding in ./htlcswitch/hop for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/66 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 66/66 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 16552 (5366/sec), new interesting: 5 (total: 71)
+fuzz: elapsed: 6s, execs: 33259 (5569/sec), new interesting: 7 (total: 73)
+fuzz: elapsed: 9s, execs: 41116 (2612/sec), new interesting: 8 (total: 74)
+fuzz: elapsed: 11s, execs: 42064 (450/sec), new interesting: 8 (total: 74)
+PASS
+ok  	github.com/lightningnetwork/lnd/htlcswitch/hop	11.305s
+=== Fuzzing FuzzScriptIsOpReturn in ./input for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/19 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 19/19 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 7634 (2489/sec), new interesting: 0 (total: 19)
+fuzz: elapsed: 6s, execs: 18896 (3754/sec), new interesting: 0 (total: 19)
+fuzz: elapsed: 9s, execs: 30442 (3849/sec), new interesting: 0 (total: 19)
+fuzz: elapsed: 10s, execs: 34482 (3627/sec), new interesting: 0 (total: 19)
+PASS
+ok  	github.com/lightningnetwork/lnd/input	10.628s
+=== Fuzzing FuzzAcceptChannel in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/16 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 16/16 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 45725 (15062/sec), new interesting: 0 (total: 16)
+fuzz: elapsed: 6s, execs: 97567 (17280/sec), new interesting: 0 (total: 16)
+fuzz: elapsed: 9s, execs: 151021 (17818/sec), new interesting: 1 (total: 17)
+fuzz: elapsed: 11s, execs: 165740 (7306/sec), new interesting: 1 (total: 17)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.215s
+=== Fuzzing FuzzAnnounceSignatures in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/8 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 8/8 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 9249 (3082/sec), new interesting: 0 (total: 8)
+fuzz: elapsed: 6s, execs: 12443 (1065/sec), new interesting: 0 (total: 8)
+fuzz: elapsed: 9s, execs: 19072 (2207/sec), new interesting: 1 (total: 9)
+fuzz: elapsed: 11s, execs: 19323 (119/sec), new interesting: 1 (total: 9)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.800s
+=== Fuzzing FuzzAnnounceSignatures2 in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/11 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 11/11 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 7603 (2509/sec), new interesting: 0 (total: 11)
+fuzz: elapsed: 6s, execs: 9141 (514/sec), new interesting: 0 (total: 11)
+fuzz: elapsed: 9s, execs: 9468 (109/sec), new interesting: 0 (total: 11)
+fuzz: elapsed: 11s, execs: 9468 (0/sec), new interesting: 0 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.899s
+=== Fuzzing FuzzChannelAnnouncement in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/4 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 4/4 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 11361 (3786/sec), new interesting: 0 (total: 4)
+fuzz: elapsed: 6s, execs: 20603 (3081/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 9s, execs: 20603 (0/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 11s, execs: 20603 (0/sec), new interesting: 1 (total: 5)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.238s
+=== Fuzzing FuzzChannelAnnouncement2 in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/20 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 20/20 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 33620 (11032/sec), new interesting: 4 (total: 24)
+fuzz: elapsed: 6s, execs: 54172 (6851/sec), new interesting: 6 (total: 26)
+fuzz: elapsed: 9s, execs: 60386 (2071/sec), new interesting: 7 (total: 27)
+fuzz: elapsed: 11s, execs: 63047 (1265/sec), new interesting: 8 (total: 28)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.279s
+=== Fuzzing FuzzChannelReady in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/20 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 20/20 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 40681 (13230/sec), new interesting: 1 (total: 21)
+fuzz: elapsed: 6s, execs: 57503 (5572/sec), new interesting: 3 (total: 23)
+fuzz: elapsed: 9s, execs: 87633 (10108/sec), new interesting: 3 (total: 23)
+fuzz: elapsed: 11s, execs: 98610 (5427/sec), new interesting: 4 (total: 24)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.539s
+=== Fuzzing FuzzChannelReestablish in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/15 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 15/15 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 8935 (2912/sec), new interesting: 0 (total: 15)
+fuzz: elapsed: 6s, execs: 11896 (987/sec), new interesting: 0 (total: 15)
+fuzz: elapsed: 9s, execs: 14328 (811/sec), new interesting: 0 (total: 15)
+fuzz: elapsed: 11s, execs: 21694 (3499/sec), new interesting: 1 (total: 16)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.508s
+=== Fuzzing FuzzChannelUpdate in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/13 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 13/13 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 2145 (715/sec), new interesting: 0 (total: 13)
+fuzz: elapsed: 6s, execs: 2145 (0/sec), new interesting: 0 (total: 13)
+fuzz: elapsed: 9s, execs: 30380 (9415/sec), new interesting: 3 (total: 16)
+fuzz: elapsed: 11s, execs: 53379 (10424/sec), new interesting: 3 (total: 16)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	14.207s
+=== Fuzzing FuzzChannelUpdate2 in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/23 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 23/23 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 7171 (2333/sec), new interesting: 0 (total: 23)
+fuzz: elapsed: 6s, execs: 10529 (1121/sec), new interesting: 0 (total: 23)
+fuzz: elapsed: 9s, execs: 21830 (3761/sec), new interesting: 2 (total: 25)
+fuzz: elapsed: 11s, execs: 22697 (411/sec), new interesting: 2 (total: 25)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.408s
+=== Fuzzing FuzzClosingComplete in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/36 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 36/36 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 40628 (13541/sec), new interesting: 3 (total: 39)
+fuzz: elapsed: 6s, execs: 79661 (13009/sec), new interesting: 3 (total: 39)
+fuzz: elapsed: 9s, execs: 105819 (8721/sec), new interesting: 5 (total: 41)
+fuzz: elapsed: 11s, execs: 130410 (12071/sec), new interesting: 7 (total: 43)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.407s
+=== Fuzzing FuzzClosingSig in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/31 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 31/31 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 30549 (10007/sec), new interesting: 1 (total: 32)
+fuzz: elapsed: 6s, execs: 47197 (5547/sec), new interesting: 2 (total: 33)
+fuzz: elapsed: 9s, execs: 67129 (6647/sec), new interesting: 4 (total: 35)
+fuzz: elapsed: 11s, execs: 74026 (3415/sec), new interesting: 4 (total: 35)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.224s
+=== Fuzzing FuzzClosingSigned in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/9 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 9/9 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 4754 (1542/sec), new interesting: 0 (total: 9)
+fuzz: elapsed: 6s, execs: 5887 (378/sec), new interesting: 0 (total: 9)
+fuzz: elapsed: 9s, execs: 11705 (1995/sec), new interesting: 1 (total: 10)
+fuzz: elapsed: 11s, execs: 34791 (11421/sec), new interesting: 2 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	17.352s
+=== Fuzzing FuzzCommitSig in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/8 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 8/8 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 6911 (2303/sec), new interesting: 0 (total: 8)
+fuzz: elapsed: 6s, execs: 67680 (20259/sec), new interesting: 3 (total: 11)
+fuzz: elapsed: 9s, execs: 91352 (7891/sec), new interesting: 6 (total: 14)
+fuzz: elapsed: 11s, execs: 91352 (0/sec), new interesting: 6 (total: 14)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.598s
+=== Fuzzing FuzzConvertFixedSchnorrSignature in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/6 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 6/6 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 14710 (4862/sec), new interesting: 0 (total: 6)
+fuzz: elapsed: 6s, execs: 31814 (5695/sec), new interesting: 0 (total: 6)
+fuzz: elapsed: 9s, execs: 48393 (5532/sec), new interesting: 0 (total: 6)
+fuzz: elapsed: 10s, execs: 53832 (4523/sec), new interesting: 0 (total: 6)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.534s
+=== Fuzzing FuzzConvertFixedSignature in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/25 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 25/25 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 10759 (3586/sec), new interesting: 0 (total: 25)
+fuzz: elapsed: 6s, execs: 33701 (7647/sec), new interesting: 0 (total: 25)
+fuzz: elapsed: 9s, execs: 52240 (6180/sec), new interesting: 0 (total: 25)
+fuzz: elapsed: 10s, execs: 59388 (5676/sec), new interesting: 1 (total: 26)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	16.461s
+=== Fuzzing FuzzCustomMessage in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/4 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 4/4 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 17460 (5687/sec), new interesting: 0 (total: 4)
+fuzz: elapsed: 6s, execs: 34137 (5560/sec), new interesting: 0 (total: 4)
+fuzz: elapsed: 9s, execs: 49379 (5081/sec), new interesting: 0 (total: 4)
+fuzz: elapsed: 10s, execs: 55018 (4995/sec), new interesting: 0 (total: 4)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.640s
+=== Fuzzing FuzzDynAck in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/21 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 21/21 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 11104 (3701/sec), new interesting: 0 (total: 21)
+fuzz: elapsed: 6s, execs: 22186 (3694/sec), new interesting: 1 (total: 22)
+fuzz: elapsed: 9s, execs: 28098 (1970/sec), new interesting: 1 (total: 22)
+fuzz: elapsed: 11s, execs: 29862 (870/sec), new interesting: 1 (total: 22)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.668s
+=== Fuzzing FuzzDynPropose in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/35 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 35/35 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 7789 (2547/sec), new interesting: 3 (total: 38)
+fuzz: elapsed: 6s, execs: 23706 (5307/sec), new interesting: 9 (total: 44)
+fuzz: elapsed: 9s, execs: 29925 (2073/sec), new interesting: 11 (total: 46)
+fuzz: elapsed: 11s, execs: 32927 (1418/sec), new interesting: 12 (total: 47)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.487s
+=== Fuzzing FuzzDynReject in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/30 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 30/30 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 10963 (3653/sec), new interesting: 1 (total: 31)
+fuzz: elapsed: 6s, execs: 26325 (5115/sec), new interesting: 1 (total: 31)
+fuzz: elapsed: 9s, execs: 43960 (5886/sec), new interesting: 2 (total: 32)
+fuzz: elapsed: 11s, execs: 46831 (1361/sec), new interesting: 2 (total: 32)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.603s
+=== Fuzzing FuzzError in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/9 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 9/9 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 13713 (4490/sec), new interesting: 0 (total: 9)
+fuzz: elapsed: 6s, execs: 29958 (5416/sec), new interesting: 0 (total: 9)
+fuzz: elapsed: 9s, execs: 45903 (5308/sec), new interesting: 0 (total: 9)
+fuzz: elapsed: 11s, execs: 51433 (2740/sec), new interesting: 0 (total: 9)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.812s
+=== Fuzzing FuzzFailAmountBelowMinimum in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/15 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 15/15 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 3647 (1215/sec), new interesting: 0 (total: 15)
+fuzz: elapsed: 6s, execs: 3803 (51/sec), new interesting: 0 (total: 15)
+fuzz: elapsed: 9s, execs: 3803 (0/sec), new interesting: 0 (total: 15)
+fuzz: elapsed: 11s, execs: 22126 (8344/sec), new interesting: 2 (total: 17)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.981s
+=== Fuzzing FuzzFailChannelDisabled in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/13 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 13/13 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 3943 (1282/sec), new interesting: 0 (total: 13)
+fuzz: elapsed: 6s, execs: 3943 (0/sec), new interesting: 0 (total: 13)
+fuzz: elapsed: 9s, execs: 3943 (0/sec), new interesting: 0 (total: 13)
+fuzz: elapsed: 11s, execs: 16892 (6110/sec), new interesting: 1 (total: 14)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.170s
+=== Fuzzing FuzzFailExpiryTooSoon in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/12 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 12/12 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 2666 (889/sec), new interesting: 0 (total: 12)
+fuzz: elapsed: 6s, execs: 2666 (0/sec), new interesting: 0 (total: 12)
+fuzz: elapsed: 9s, execs: 63515 (20299/sec), new interesting: 3 (total: 15)
+fuzz: elapsed: 11s, execs: 63961 (213/sec), new interesting: 3 (total: 15)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.764s
+=== Fuzzing FuzzFailFeeInsufficient in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/11 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 11/11 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 11038 (3675/sec), new interesting: 0 (total: 11)
+fuzz: elapsed: 6s, execs: 17715 (2228/sec), new interesting: 1 (total: 12)
+fuzz: elapsed: 9s, execs: 17715 (0/sec), new interesting: 1 (total: 12)
+fuzz: elapsed: 11s, execs: 32560 (6564/sec), new interesting: 2 (total: 13)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.438s
+=== Fuzzing FuzzFailFinalIncorrectCltvExpiry in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/5 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 5/5 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 16368 (5456/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 6s, execs: 33355 (5523/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 9s, execs: 49837 (5494/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 10s, execs: 61702 (11307/sec), new interesting: 1 (total: 6)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.901s
+=== Fuzzing FuzzFailFinalIncorrectHtlcAmount in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/4 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 4/4 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 43765 (14384/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 6s, execs: 89330 (15192/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 9s, execs: 135229 (15300/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 10s, execs: 152426 (14828/sec), new interesting: 1 (total: 5)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.358s
+=== Fuzzing FuzzFailIncorrectCltvExpiry in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/12 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 12/12 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 15187 (5046/sec), new interesting: 2 (total: 14)
+fuzz: elapsed: 6s, execs: 34838 (6550/sec), new interesting: 4 (total: 16)
+fuzz: elapsed: 9s, execs: 48244 (4469/sec), new interesting: 5 (total: 17)
+fuzz: elapsed: 11s, execs: 64579 (7713/sec), new interesting: 6 (total: 18)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.351s
+=== Fuzzing FuzzFailIncorrectDetails in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/9 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 9/9 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 15553 (5146/sec), new interesting: 1 (total: 10)
+fuzz: elapsed: 6s, execs: 33834 (6083/sec), new interesting: 2 (total: 11)
+fuzz: elapsed: 9s, execs: 42926 (3034/sec), new interesting: 2 (total: 11)
+fuzz: elapsed: 11s, execs: 42926 (0/sec), new interesting: 2 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.427s
+=== Fuzzing FuzzFailInvalidBlinding in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/5 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 5/5 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 44540 (14844/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 6s, execs: 63884 (6440/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 9s, execs: 79930 (5355/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 10s, execs: 84815 (4070/sec), new interesting: 1 (total: 6)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.246s
+=== Fuzzing FuzzFailInvalidOnionHmac in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/2 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 2/2 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 15741 (5223/sec), new interesting: 2 (total: 4)
+fuzz: elapsed: 6s, execs: 33188 (5826/sec), new interesting: 2 (total: 4)
+fuzz: elapsed: 9s, execs: 50349 (5718/sec), new interesting: 2 (total: 4)
+fuzz: elapsed: 10s, execs: 56099 (5164/sec), new interesting: 2 (total: 4)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.843s
+=== Fuzzing FuzzFailInvalidOnionKey in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/4 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 4/4 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 17510 (5680/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 6s, execs: 34380 (5623/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 9s, execs: 52788 (6136/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 10s, execs: 58419 (5031/sec), new interesting: 1 (total: 5)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.222s
+=== Fuzzing FuzzFailInvalidOnionVersion in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/4 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 4/4 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 15878 (5206/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 6s, execs: 33959 (6018/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 9s, execs: 50967 (5678/sec), new interesting: 1 (total: 5)
+fuzz: elapsed: 10s, execs: 56443 (4900/sec), new interesting: 1 (total: 5)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.305s
+=== Fuzzing FuzzFailTemporaryChannelFailure in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/8 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 8/8 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 8599 (2808/sec), new interesting: 1 (total: 9)
+fuzz: elapsed: 6s, execs: 13021 (1474/sec), new interesting: 1 (total: 9)
+fuzz: elapsed: 9s, execs: 19941 (2307/sec), new interesting: 2 (total: 10)
+fuzz: elapsed: 11s, execs: 20068 (57/sec), new interesting: 2 (total: 10)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.897s
+=== Fuzzing FuzzFee in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/7 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 7/7 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 17802 (5924/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 6s, execs: 36877 (6361/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 9s, execs: 67810 (10311/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 10s, execs: 86854 (17187/sec), new interesting: 1 (total: 8)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.596s
+=== Fuzzing FuzzFundingCreated in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/9 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 9/9 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 5532 (1843/sec), new interesting: 1 (total: 10)
+fuzz: elapsed: 6s, execs: 71501 (21971/sec), new interesting: 6 (total: 15)
+fuzz: elapsed: 9s, execs: 92968 (7163/sec), new interesting: 7 (total: 16)
+fuzz: elapsed: 11s, execs: 92968 (0/sec), new interesting: 7 (total: 16)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.249s
+=== Fuzzing FuzzFundingSigned in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/8 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 8/8 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 14523 (4777/sec), new interesting: 2 (total: 10)
+fuzz: elapsed: 6s, execs: 79448 (21683/sec), new interesting: 7 (total: 15)
+fuzz: elapsed: 9s, execs: 119853 (13478/sec), new interesting: 10 (total: 18)
+fuzz: elapsed: 11s, execs: 147031 (13229/sec), new interesting: 12 (total: 20)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.226s
+=== Fuzzing FuzzGossipTimestampRange in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/20 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 20/20 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 6132 (1991/sec), new interesting: 2 (total: 22)
+fuzz: elapsed: 6s, execs: 21471 (5113/sec), new interesting: 4 (total: 24)
+fuzz: elapsed: 9s, execs: 30597 (3042/sec), new interesting: 6 (total: 26)
+fuzz: elapsed: 11s, execs: 32167 (742/sec), new interesting: 6 (total: 26)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.337s
+=== Fuzzing FuzzInit in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/27 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 27/27 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 10413 (3397/sec), new interesting: 4 (total: 31)
+fuzz: elapsed: 6s, execs: 22948 (4173/sec), new interesting: 5 (total: 32)
+fuzz: elapsed: 9s, execs: 30172 (2411/sec), new interesting: 5 (total: 32)
+fuzz: elapsed: 11s, execs: 32036 (921/sec), new interesting: 5 (total: 32)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	13.018s
+=== Fuzzing FuzzInvalidOnionPayload in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/19 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 19/19 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 15973 (5226/sec), new interesting: 1 (total: 20)
+fuzz: elapsed: 6s, execs: 33534 (5856/sec), new interesting: 1 (total: 20)
+fuzz: elapsed: 9s, execs: 51217 (5892/sec), new interesting: 1 (total: 20)
+fuzz: elapsed: 10s, execs: 56859 (5058/sec), new interesting: 1 (total: 20)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.341s
+=== Fuzzing FuzzKickoffSig in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/6 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 6/6 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 7078 (2315/sec), new interesting: 1 (total: 7)
+fuzz: elapsed: 6s, execs: 8486 (469/sec), new interesting: 1 (total: 7)
+fuzz: elapsed: 9s, execs: 8879 (131/sec), new interesting: 1 (total: 7)
+fuzz: elapsed: 11s, execs: 8879 (0/sec), new interesting: 1 (total: 7)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.396s
+=== Fuzzing FuzzNodeAnnouncement in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/12 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 12/12 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 12747 (4191/sec), new interesting: 1 (total: 13)
+fuzz: elapsed: 6s, execs: 64425 (17229/sec), new interesting: 3 (total: 15)
+fuzz: elapsed: 9s, execs: 111066 (15548/sec), new interesting: 5 (total: 17)
+fuzz: elapsed: 11s, execs: 132084 (10410/sec), new interesting: 7 (total: 19)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.216s
+=== Fuzzing FuzzOpenChannel in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/6 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 6/6 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 52194 (17397/sec), new interesting: 2 (total: 8)
+fuzz: elapsed: 6s, execs: 139328 (29029/sec), new interesting: 5 (total: 11)
+fuzz: elapsed: 9s, execs: 227172 (29241/sec), new interesting: 8 (total: 14)
+fuzz: elapsed: 11s, execs: 280314 (32509/sec), new interesting: 8 (total: 14)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.742s
+=== Fuzzing FuzzParseRawSignature in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/27 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 27/27 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 54370 (18119/sec), new interesting: 0 (total: 27)
+fuzz: elapsed: 6s, execs: 113913 (19846/sec), new interesting: 0 (total: 27)
+fuzz: elapsed: 9s, execs: 170955 (18575/sec), new interesting: 0 (total: 27)
+fuzz: elapsed: 10s, execs: 177552 (5924/sec), new interesting: 0 (total: 27)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.570s
+=== Fuzzing FuzzPing in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/9 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 9/9 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 14134 (4606/sec), new interesting: 1 (total: 10)
+fuzz: elapsed: 6s, execs: 30165 (5344/sec), new interesting: 2 (total: 11)
+fuzz: elapsed: 9s, execs: 59027 (9620/sec), new interesting: 2 (total: 11)
+fuzz: elapsed: 10s, execs: 64602 (4599/sec), new interesting: 2 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.471s
+=== Fuzzing FuzzPong in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/5 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 5/5 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 53671 (17887/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 6s, execs: 105417 (17249/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 9s, execs: 171200 (21919/sec), new interesting: 3 (total: 8)
+fuzz: elapsed: 10s, execs: 195707 (21959/sec), new interesting: 3 (total: 8)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	11.240s
+=== Fuzzing FuzzQueryChannelRange in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/28 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 28/28 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 13565 (4520/sec), new interesting: 3 (total: 31)
+fuzz: elapsed: 6s, execs: 24214 (3549/sec), new interesting: 4 (total: 32)
+fuzz: elapsed: 9s, execs: 32402 (2729/sec), new interesting: 4 (total: 32)
+fuzz: elapsed: 11s, execs: 34345 (885/sec), new interesting: 5 (total: 33)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.293s
+=== Fuzzing FuzzQueryShortChanIDs in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/4 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 4/4 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 20647 (6971/sec), new interesting: 6 (total: 10)
+fuzz: elapsed: 6s, execs: 83108 (20824/sec), new interesting: 8 (total: 12)
+fuzz: elapsed: 9s, execs: 142221 (19697/sec), new interesting: 12 (total: 16)
+fuzz: elapsed: 11s, execs: 164141 (10662/sec), new interesting: 16 (total: 20)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.100s
+=== Fuzzing FuzzReplyChannelRange in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/25 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 25/25 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 50879 (16959/sec), new interesting: 8 (total: 33)
+fuzz: elapsed: 6s, execs: 96582 (14863/sec), new interesting: 13 (total: 38)
+fuzz: elapsed: 9s, execs: 112442 (5287/sec), new interesting: 15 (total: 40)
+fuzz: elapsed: 11s, execs: 116057 (1788/sec), new interesting: 15 (total: 40)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.041s
+=== Fuzzing FuzzReplyShortChanIDsEnd in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/6 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 6/6 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 9806 (3215/sec), new interesting: 1 (total: 7)
+fuzz: elapsed: 6s, execs: 12497 (897/sec), new interesting: 1 (total: 7)
+fuzz: elapsed: 9s, execs: 12497 (0/sec), new interesting: 1 (total: 7)
+fuzz: elapsed: 11s, execs: 12497 (0/sec), new interesting: 1 (total: 7)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.235s
+=== Fuzzing FuzzRevokeAndAck in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/5 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 5/5 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 17376 (5792/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 6s, execs: 31969 (4864/sec), new interesting: 1 (total: 6)
+fuzz: elapsed: 9s, execs: 52722 (6917/sec), new interesting: 2 (total: 7)
+fuzz: elapsed: 11s, execs: 53595 (417/sec), new interesting: 2 (total: 7)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.360s
+=== Fuzzing FuzzShutdown in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/33 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 33/33 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 12148 (4040/sec), new interesting: 1 (total: 34)
+fuzz: elapsed: 6s, execs: 29933 (5925/sec), new interesting: 2 (total: 35)
+fuzz: elapsed: 9s, execs: 44440 (4840/sec), new interesting: 2 (total: 35)
+fuzz: elapsed: 11s, execs: 48615 (2075/sec), new interesting: 2 (total: 35)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.444s
+=== Fuzzing FuzzStfu in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/7 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 7/7 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 8912 (2930/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 6s, execs: 10242 (443/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 9s, execs: 10242 (0/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 11s, execs: 10242 (0/sec), new interesting: 1 (total: 8)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.176s
+=== Fuzzing FuzzUpdateAddHTLC in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/7 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 7/7 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 7337 (2416/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 6s, execs: 43010 (11887/sec), new interesting: 2 (total: 9)
+fuzz: elapsed: 9s, execs: 62012 (6335/sec), new interesting: 2 (total: 9)
+fuzz: elapsed: 11s, execs: 65039 (1492/sec), new interesting: 2 (total: 9)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.137s
+=== Fuzzing FuzzUpdateFailHTLC in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/9 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 9/9 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 56345 (18780/sec), new interesting: 1 (total: 10)
+fuzz: elapsed: 6s, execs: 106603 (16749/sec), new interesting: 2 (total: 11)
+fuzz: elapsed: 9s, execs: 138308 (10569/sec), new interesting: 2 (total: 11)
+fuzz: elapsed: 11s, execs: 151706 (6610/sec), new interesting: 2 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.114s
+=== Fuzzing FuzzUpdateFailMalformedHTLC in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/10 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 10/10 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 21614 (7104/sec), new interesting: 1 (total: 11)
+fuzz: elapsed: 6s, execs: 22589 (325/sec), new interesting: 1 (total: 11)
+fuzz: elapsed: 9s, execs: 22589 (0/sec), new interesting: 1 (total: 11)
+fuzz: elapsed: 11s, execs: 22589 (0/sec), new interesting: 1 (total: 11)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.337s
+=== Fuzzing FuzzUpdateFee in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/6 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 6/6 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 9779 (3259/sec), new interesting: 1 (total: 7)
+fuzz: elapsed: 6s, execs: 9779 (0/sec), new interesting: 1 (total: 7)
+fuzz: elapsed: 9s, execs: 35546 (8322/sec), new interesting: 2 (total: 8)
+fuzz: elapsed: 11s, execs: 36121 (284/sec), new interesting: 2 (total: 8)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.228s
+=== Fuzzing FuzzUpdateFulfillHTLC in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/9 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 9/9 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 2464 (821/sec), new interesting: 1 (total: 10)
+fuzz: elapsed: 6s, execs: 42062 (13199/sec), new interesting: 6 (total: 15)
+fuzz: elapsed: 9s, execs: 68331 (8747/sec), new interesting: 9 (total: 18)
+fuzz: elapsed: 11s, execs: 84294 (7826/sec), new interesting: 9 (total: 18)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.270s
+=== Fuzzing FuzzWarning in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/7 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 7/7 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 59999 (19975/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 6s, execs: 132557 (23840/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 9s, execs: 191763 (19758/sec), new interesting: 1 (total: 8)
+fuzz: elapsed: 11s, execs: 210018 (9062/sec), new interesting: 1 (total: 8)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.078s
+=== Fuzzing FuzzZlibQueryShortChanIDs in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/64 completed
+fuzz: elapsed: 1s, gathering baseline coverage: 64/64 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 12422 (4132/sec), new interesting: 17 (total: 81)
+fuzz: elapsed: 6s, execs: 35442 (7687/sec), new interesting: 35 (total: 99)
+fuzz: elapsed: 9s, execs: 53657 (5949/sec), new interesting: 46 (total: 110)
+fuzz: elapsed: 11s, execs: 56367 (1178/sec), new interesting: 49 (total: 113)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.664s
+=== Fuzzing FuzzZlibReplyChannelRange in ./lnwire for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/99 completed
+fuzz: elapsed: 3s, gathering baseline coverage: 99/99 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 230 (76/sec), new interesting: 0 (total: 99)
+fuzz: elapsed: 6s, execs: 4203 (1324/sec), new interesting: 6 (total: 105)
+fuzz: elapsed: 9s, execs: 12025 (2607/sec), new interesting: 14 (total: 113)
+fuzz: elapsed: 11s, execs: 13972 (950/sec), new interesting: 17 (total: 116)
+PASS
+ok  	github.com/lightningnetwork/lnd/lnwire	12.000s
+=== Fuzzing FuzzAuthChecker in ./macaroons for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 3175 (1050/sec), new interesting: 6 (total: 6)
+fuzz: elapsed: 6s, execs: 6384 (1070/sec), new interesting: 7 (total: 7)
+fuzz: elapsed: 9s, execs: 14069 (2562/sec), new interesting: 14 (total: 14)
+fuzz: elapsed: 11s, execs: 14437 (182/sec), new interesting: 15 (total: 15)
+PASS
+ok  	github.com/lightningnetwork/lnd/macaroons	11.170s
+=== Fuzzing FuzzUnmarshalMacaroon in ./macaroons for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 5231 (1744/sec), new interesting: 8 (total: 8)
+fuzz: elapsed: 6s, execs: 11265 (1993/sec), new interesting: 18 (total: 18)
+fuzz: elapsed: 9s, execs: 20109 (2949/sec), new interesting: 25 (total: 25)
+fuzz: elapsed: 10s, execs: 24813 (4240/sec), new interesting: 28 (total: 28)
+PASS
+ok  	github.com/lightningnetwork/lnd/macaroons	10.202s
+=== Fuzzing FuzzProbability in ./routing for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 25047 (8215/sec), new interesting: 12 (total: 12)
+fuzz: elapsed: 6s, execs: 63787 (12911/sec), new interesting: 14 (total: 14)
+fuzz: elapsed: 9s, execs: 83990 (6736/sec), new interesting: 15 (total: 15)
+fuzz: elapsed: 10s, execs: 87966 (3562/sec), new interesting: 15 (total: 15)
+PASS
+ok  	github.com/lightningnetwork/lnd/routing	13.983s
+=== Fuzzing FuzzInboundOutboundFee in ./routing for 10s ===
+fuzz: elapsed: 0s, gathering baseline coverage: 0/1 completed
+fuzz: elapsed: 0s, gathering baseline coverage: 1/1 completed, now fuzzing with 16 workers
+fuzz: elapsed: 3s, execs: 127 (42/sec), new interesting: 18 (total: 19)
+fuzz: elapsed: 6s, execs: 14265 (4711/sec), new interesting: 32 (total: 33)
+fuzz: elapsed: 9s, execs: 52288 (12677/sec), new interesting: 35 (total: 36)
+fuzz: elapsed: 10s, execs: 64509 (10913/sec), new interesting: 35 (total: 36)
+PASS
+ok  	github.com/lightningnetwork/lnd/routing	14.632s
+=== Fuzzing FuzzBigSize32 in ./tlv for 10s ===
+go: downloading github.com/btcsuite/btcd/btcec/v2 v2.3.2
+go: downloading github.com/decred/dcrd/dcrec/secp256k1/v4 v4.0.1
+go: downloading github.com/lightningnetwork/lnd/fn/v2 v2.0.2
+go: downloading golang.org/x/exp v0.0.0-20231226003508-02704c960a9b
+go: downloading github.com/btcsuite/btcd v0.24.1-0.20240301210420-1a2b599bf1af
+go: downloading github.com/stretchr/testify v1.8.4
+go: downloading golang.org/x/crypto v0.16.0
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 147778 (49255/sec), new interesting: 17 (total: 17)
+fuzz: elapsed: 6s, execs: 298436 (48917/sec), new interesting: 17 (total: 17)
+fuzz: elapsed: 9s, execs: 354275 (18614/sec), new interesting: 17 (total: 17)
+fuzz: elapsed: 10s, execs: 373355 (17086/sec), new interesting: 17 (total: 17)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.249s
+=== Fuzzing FuzzBigSize64 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 41794 (13789/sec), new interesting: 15 (total: 15)
+fuzz: elapsed: 6s, execs: 93382 (17195/sec), new interesting: 15 (total: 15)
+fuzz: elapsed: 9s, execs: 145556 (17392/sec), new interesting: 15 (total: 15)
+fuzz: elapsed: 10s, execs: 161344 (14213/sec), new interesting: 15 (total: 15)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.187s
+=== Fuzzing FuzzBool in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 46435 (15276/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 6s, execs: 105976 (19847/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 9s, execs: 163598 (19161/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 10s, execs: 180730 (15480/sec), new interesting: 4 (total: 4)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.176s
+=== Fuzzing FuzzBytes32 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 59209 (19224/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 6s, execs: 224631 (56583/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 9s, execs: 402133 (59082/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 10s, execs: 455869 (48634/sec), new interesting: 4 (total: 4)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.160s
+=== Fuzzing FuzzBytes33 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 166439 (55152/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 6s, execs: 350030 (61098/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 9s, execs: 468256 (39472/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 10s, execs: 489093 (18653/sec), new interesting: 5 (total: 5)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.231s
+=== Fuzzing FuzzBytes64 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 75294 (24966/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 6s, execs: 141353 (22020/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 9s, execs: 204365 (21004/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 10s, execs: 225202 (18811/sec), new interesting: 4 (total: 4)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.158s
+=== Fuzzing FuzzPubKey in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 143368 (47777/sec), new interesting: 7 (total: 7)
+fuzz: elapsed: 6s, execs: 316562 (57731/sec), new interesting: 7 (total: 7)
+fuzz: elapsed: 9s, execs: 489387 (57612/sec), new interesting: 7 (total: 7)
+fuzz: elapsed: 10s, execs: 551304 (55654/sec), new interesting: 7 (total: 7)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.147s
+=== Fuzzing FuzzStream in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 99248 (33081/sec), new interesting: 95 (total: 95)
+fuzz: elapsed: 6s, execs: 207749 (35387/sec), new interesting: 115 (total: 115)
+fuzz: elapsed: 9s, execs: 247333 (13195/sec), new interesting: 117 (total: 117)
+fuzz: elapsed: 10s, execs: 262683 (13627/sec), new interesting: 117 (total: 117)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.293s
+=== Fuzzing FuzzTUint16 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 46855 (15613/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 6s, execs: 100282 (17792/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 9s, execs: 151949 (17241/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 10s, execs: 170806 (17075/sec), new interesting: 4 (total: 4)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.142s
+=== Fuzzing FuzzTUint32 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 39999 (13132/sec), new interesting: 10 (total: 10)
+fuzz: elapsed: 6s, execs: 88624 (16224/sec), new interesting: 10 (total: 10)
+fuzz: elapsed: 9s, execs: 136752 (16039/sec), new interesting: 10 (total: 10)
+fuzz: elapsed: 10s, execs: 151143 (13012/sec), new interesting: 10 (total: 10)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.179s
+=== Fuzzing FuzzTUint64 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 45359 (14987/sec), new interesting: 13 (total: 13)
+fuzz: elapsed: 6s, execs: 99406 (18017/sec), new interesting: 13 (total: 13)
+fuzz: elapsed: 9s, execs: 148620 (16405/sec), new interesting: 13 (total: 13)
+fuzz: elapsed: 10s, execs: 166674 (16393/sec), new interesting: 13 (total: 13)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.167s
+=== Fuzzing FuzzUint16 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 37174 (12105/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 6s, execs: 82130 (14985/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 9s, execs: 122971 (13588/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 10s, execs: 136781 (12610/sec), new interesting: 5 (total: 5)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.216s
+=== Fuzzing FuzzUint32 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 44640 (14566/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 6s, execs: 96184 (17181/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 9s, execs: 149951 (17922/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 10s, execs: 169433 (17620/sec), new interesting: 3 (total: 3)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.200s
+=== Fuzzing FuzzUint64 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 147746 (49010/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 6s, execs: 318771 (57008/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 9s, execs: 482447 (54394/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 10s, execs: 535994 (51060/sec), new interesting: 4 (total: 4)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.116s
+=== Fuzzing FuzzUint8 in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 123095 (40574/sec), new interesting: 2 (total: 2)
+fuzz: elapsed: 6s, execs: 227836 (34914/sec), new interesting: 2 (total: 2)
+fuzz: elapsed: 9s, execs: 276195 (16120/sec), new interesting: 2 (total: 2)
+fuzz: elapsed: 10s, execs: 290554 (12976/sec), new interesting: 2 (total: 2)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.187s
+=== Fuzzing FuzzVarBytes in ./tlv for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 64237 (21263/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 6s, execs: 117884 (17882/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 9s, execs: 172336 (18148/sec), new interesting: 4 (total: 4)
+fuzz: elapsed: 10s, execs: 215955 (39264/sec), new interesting: 4 (total: 4)
+PASS
+ok  	github.com/lightningnetwork/lnd/tlv	10.162s
+=== Fuzzing FuzzAddressIterator in ./watchtower/wtclient for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 1307 (430/sec), new interesting: 9 (total: 9)
+fuzz: elapsed: 6s, execs: 5498 (1397/sec), new interesting: 15 (total: 15)
+fuzz: elapsed: 9s, execs: 12072 (2192/sec), new interesting: 21 (total: 21)
+fuzz: elapsed: 10s, execs: 13947 (1649/sec), new interesting: 21 (total: 21)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtclient	47.320s
+=== Fuzzing FuzzCreateSession in ./watchtower/wtwire for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 20366 (6786/sec), new interesting: 8 (total: 8)
+fuzz: elapsed: 6s, execs: 54946 (11515/sec), new interesting: 8 (total: 8)
+fuzz: elapsed: 9s, execs: 91757 (12280/sec), new interesting: 8 (total: 8)
+fuzz: elapsed: 10s, execs: 104513 (11473/sec), new interesting: 8 (total: 8)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtwire	10.393s
+=== Fuzzing FuzzCreateSessionReply in ./watchtower/wtwire for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 9410 (3128/sec), new interesting: 6 (total: 6)
+fuzz: elapsed: 6s, execs: 19749 (3371/sec), new interesting: 9 (total: 9)
+fuzz: elapsed: 9s, execs: 27448 (2571/sec), new interesting: 9 (total: 9)
+fuzz: elapsed: 11s, execs: 27892 (219/sec), new interesting: 9 (total: 9)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtwire	11.391s
+=== Fuzzing FuzzDeleteSession in ./watchtower/wtwire for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 7624 (2517/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 6s, execs: 20423 (4306/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 9s, execs: 58273 (12501/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 10s, execs: 70359 (10910/sec), new interesting: 3 (total: 3)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtwire	10.420s
+=== Fuzzing FuzzDeleteSessionReply in ./watchtower/wtwire for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 15614 (5199/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 6s, execs: 36553 (6979/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 9s, execs: 57467 (6972/sec), new interesting: 3 (total: 3)
+fuzz: elapsed: 10s, execs: 63909 (5819/sec), new interesting: 3 (total: 3)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtwire	10.408s
+=== Fuzzing FuzzError in ./watchtower/wtwire for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 1644 (541/sec), new interesting: 6 (total: 6)
+fuzz: elapsed: 6s, execs: 4445 (934/sec), new interesting: 7 (total: 7)
+fuzz: elapsed: 9s, execs: 6960 (838/sec), new interesting: 7 (total: 7)
+fuzz: elapsed: 11s, execs: 7968 (598/sec), new interesting: 7 (total: 7)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtwire	11.003s
+=== Fuzzing FuzzInit in ./watchtower/wtwire for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 11693 (3873/sec), new interesting: 15 (total: 15)
+fuzz: elapsed: 6s, execs: 38653 (8965/sec), new interesting: 28 (total: 28)
+fuzz: elapsed: 9s, execs: 57771 (6388/sec), new interesting: 31 (total: 31)
+fuzz: elapsed: 11s, execs: 68150 (5114/sec), new interesting: 32 (total: 32)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtwire	11.308s
+=== Fuzzing FuzzStateUpdate in ./watchtower/wtwire for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 17354 (5784/sec), new interesting: 10 (total: 10)
+fuzz: elapsed: 6s, execs: 35025 (5732/sec), new interesting: 12 (total: 12)
+fuzz: elapsed: 9s, execs: 43240 (2738/sec), new interesting: 14 (total: 14)
+fuzz: elapsed: 11s, execs: 45106 (931/sec), new interesting: 14 (total: 14)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtwire	11.334s
+=== Fuzzing FuzzStateUpdateReply in ./watchtower/wtwire for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 3896 (1283/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 6s, execs: 17548 (4575/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 9s, execs: 39188 (7214/sec), new interesting: 5 (total: 5)
+fuzz: elapsed: 10s, execs: 48738 (8586/sec), new interesting: 5 (total: 5)
+PASS
+ok  	github.com/lightningnetwork/lnd/watchtower/wtwire	10.410s
+=== Fuzzing FuzzDecode in ./zpay32 for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 99930 (33303/sec), new interesting: 71 (total: 71)
+fuzz: elapsed: 6s, execs: 233218 (44436/sec), new interesting: 76 (total: 76)
+fuzz: elapsed: 9s, execs: 359631 (42129/sec), new interesting: 87 (total: 87)
+fuzz: elapsed: 11s, execs: 371556 (7551/sec), new interesting: 88 (total: 88)
+PASS
+ok  	github.com/lightningnetwork/lnd/zpay32	10.645s
+=== Fuzzing FuzzEncode in ./zpay32 for 10s ===
+warning: starting with empty corpus
+fuzz: elapsed: 0s, execs: 0 (0/sec), new interesting: 0 (total: 0)
+fuzz: elapsed: 3s, execs: 13248 (4336/sec), new interesting: 44 (total: 44)
+fuzz: elapsed: 6s, execs: 43864 (10205/sec), new interesting: 79 (total: 79)
+fuzz: elapsed: 9s, execs: 77899 (11345/sec), new interesting: 110 (total: 110)
+fuzz: elapsed: 11s, execs: 81608 (1758/sec), new interesting: 110 (total: 110)
+PASS
+ok  	github.com/lightningnetwork/lnd/zpay32	11.225s

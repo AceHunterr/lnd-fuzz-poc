@@ -1,0 +1,2701 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>kvdb: Go Coverage Report</title>
+		<style>
+			body {
+				background: black;
+				color: rgb(80, 80, 80);
+			}
+			body, pre, #legend span {
+				font-family: Menlo, monospace;
+				font-weight: bold;
+			}
+			#topbar {
+				background: black;
+				position: fixed;
+				top: 0; left: 0; right: 0;
+				height: 42px;
+				border-bottom: 1px solid rgb(80, 80, 80);
+			}
+			#content {
+				margin-top: 50px;
+			}
+			#nav, #legend {
+				float: left;
+				margin-left: 10px;
+			}
+			#legend {
+				margin-top: 12px;
+			}
+			#nav {
+				margin-top: 10px;
+			}
+			#legend span {
+				margin: 0 5px;
+			}
+			.cov0 { color: rgb(192, 0, 0) }
+.cov1 { color: rgb(128, 128, 128) }
+.cov2 { color: rgb(116, 140, 131) }
+.cov3 { color: rgb(104, 152, 134) }
+.cov4 { color: rgb(92, 164, 137) }
+.cov5 { color: rgb(80, 176, 140) }
+.cov6 { color: rgb(68, 188, 143) }
+.cov7 { color: rgb(56, 200, 146) }
+.cov8 { color: rgb(44, 212, 149) }
+.cov9 { color: rgb(32, 224, 152) }
+.cov10 { color: rgb(20, 236, 155) }
+
+		</style>
+	</head>
+	<body>
+		<div id="topbar">
+			<div id="nav">
+				<select id="files">
+				
+				<option value="file0">github.com/lightningnetwork/lnd/kvdb/backend.go (0.0%)</option>
+				
+				<option value="file1">github.com/lightningnetwork/lnd/kvdb/bolt_compact.go (0.0%)</option>
+				
+				<option value="file2">github.com/lightningnetwork/lnd/kvdb/bolt_fixture.go (0.0%)</option>
+				
+				<option value="file3">github.com/lightningnetwork/lnd/kvdb/etcd/config.go (0.0%)</option>
+				
+				<option value="file4">github.com/lightningnetwork/lnd/kvdb/interface.go (0.0%)</option>
+				
+				<option value="file5">github.com/lightningnetwork/lnd/kvdb/kvdb_no_etcd.go (0.0%)</option>
+				
+				<option value="file6">github.com/lightningnetwork/lnd/kvdb/kvdb_no_postgres.go (0.0%)</option>
+				
+				<option value="file7">github.com/lightningnetwork/lnd/kvdb/kvdb_no_sqlite.go (0.0%)</option>
+				
+				<option value="file8">github.com/lightningnetwork/lnd/kvdb/log.go (0.0%)</option>
+				
+				<option value="file9">github.com/lightningnetwork/lnd/kvdb/sqlbase/db_conn_set.go (0.0%)</option>
+				
+				<option value="file10">github.com/lightningnetwork/lnd/kvdb/sqlbase/log.go (0.0%)</option>
+				
+				<option value="file11">github.com/lightningnetwork/lnd/kvdb/sqlbase/no_sql.go (0.0%)</option>
+				
+				<option value="file12">github.com/lightningnetwork/lnd/kvdb/test.go (0.0%)</option>
+				
+				<option value="file13">github.com/lightningnetwork/lnd/kvdb/test_utils.go (0.0%)</option>
+				
+				<option value="file14">github.com/lightningnetwork/lnd/macaroons/auth.go (0.0%)</option>
+				
+				<option value="file15">github.com/lightningnetwork/lnd/macaroons/bake.go (0.0%)</option>
+				
+				<option value="file16">github.com/lightningnetwork/lnd/macaroons/constraints.go (0.0%)</option>
+				
+				<option value="file17">github.com/lightningnetwork/lnd/macaroons/context.go (14.3%)</option>
+				
+				<option value="file18">github.com/lightningnetwork/lnd/macaroons/service.go (0.0%)</option>
+				
+				<option value="file19">github.com/lightningnetwork/lnd/macaroons/store.go (0.0%)</option>
+				
+				</select>
+			</div>
+			<div id="legend">
+				<span>not tracked</span>
+			
+				<span class="cov0">no coverage</span>
+				<span class="cov1">low coverage</span>
+				<span class="cov2">*</span>
+				<span class="cov3">*</span>
+				<span class="cov4">*</span>
+				<span class="cov5">*</span>
+				<span class="cov6">*</span>
+				<span class="cov7">*</span>
+				<span class="cov8">*</span>
+				<span class="cov9">*</span>
+				<span class="cov10">high coverage</span>
+			
+			</div>
+		</div>
+		<div id="content">
+		
+		<pre class="file" id="file0" style="display: none">//go:build !js
+// +build !js
+
+package kvdb
+
+import (
+        "context"
+        "crypto/sha256"
+        "encoding/binary"
+        "encoding/hex"
+        "fmt"
+        "os"
+        "path/filepath"
+        "time"
+
+        _ "github.com/btcsuite/btcwallet/walletdb/bdb" // Import to register backend.
+)
+
+const (
+        // DefaultTempDBFileName is the default name of the temporary bolt DB
+        // file that we'll use to atomically compact the primary DB file on
+        // startup.
+        DefaultTempDBFileName = "temp-dont-use.db"
+
+        // LastCompactionFileNameSuffix is the suffix we append to the file name
+        // of a database file to record the timestamp when the last compaction
+        // occurred.
+        LastCompactionFileNameSuffix = ".last-compacted"
+)
+
+var (
+        byteOrder = binary.BigEndian
+)
+
+// fileExists returns true if the file exists, and false otherwise.
+func fileExists(path string) bool <span class="cov0" title="0">{
+        if _, err := os.Stat(path); err != nil </span><span class="cov0" title="0">{
+                if os.IsNotExist(err) </span><span class="cov0" title="0">{
+                        return false
+                }</span>
+        }
+
+        <span class="cov0" title="0">return true</span>
+}
+
+// BoltBackendConfig is a struct that holds settings specific to the bolt
+// database backend.
+type BoltBackendConfig struct {
+        // DBPath is the directory path in which the database file should be
+        // stored.
+        DBPath string
+
+        // DBFileName is the name of the database file.
+        DBFileName string
+
+        // NoFreelistSync, if true, prevents the database from syncing its
+        // freelist to disk, resulting in improved performance at the expense of
+        // increased startup time.
+        NoFreelistSync bool
+
+        // AutoCompact specifies if a Bolt based database backend should be
+        // automatically compacted on startup (if the minimum age of the
+        // database file is reached). This will require additional disk space
+        // for the compacted copy of the database but will result in an overall
+        // lower database size after the compaction.
+        AutoCompact bool
+
+        // AutoCompactMinAge specifies the minimum time that must have passed
+        // since a bolt database file was last compacted for the compaction to
+        // be considered again.
+        AutoCompactMinAge time.Duration
+
+        // DBTimeout specifies the timeout value to use when opening the wallet
+        // database.
+        DBTimeout time.Duration
+
+        // ReadOnly specifies if the database should be opened in read-only
+        // mode.
+        ReadOnly bool
+}
+
+// GetBoltBackend opens (or creates if doesn't exits) a bbolt backed database
+// and returns a kvdb.Backend wrapping it.
+func GetBoltBackend(cfg *BoltBackendConfig) (Backend, error) <span class="cov0" title="0">{
+        dbFilePath := filepath.Join(cfg.DBPath, cfg.DBFileName)
+
+        // Is this a new database?
+        if !fileExists(dbFilePath) </span><span class="cov0" title="0">{
+                if !fileExists(cfg.DBPath) </span><span class="cov0" title="0">{
+                        if err := os.MkdirAll(cfg.DBPath, 0700); err != nil </span><span class="cov0" title="0">{
+                                return nil, err
+                        }</span>
+                }
+
+                <span class="cov0" title="0">return Create(
+                        BoltBackendName, dbFilePath,
+                        cfg.NoFreelistSync, cfg.DBTimeout, cfg.ReadOnly,
+                )</span>
+        }
+
+        // This is an existing database. We might want to compact it on startup
+        // to free up some space.
+        <span class="cov0" title="0">if cfg.AutoCompact </span><span class="cov0" title="0">{
+                if err := compactAndSwap(cfg); err != nil </span><span class="cov0" title="0">{
+                        return nil, err
+                }</span>
+        }
+
+        <span class="cov0" title="0">return Open(
+                BoltBackendName, dbFilePath,
+                cfg.NoFreelistSync, cfg.DBTimeout, cfg.ReadOnly,
+        )</span>
+}
+
+// compactAndSwap will attempt to write a new temporary DB file to disk with
+// the compacted database content, then atomically swap (via rename) the old
+// file for the new file by updating the name of the new file to the old.
+func compactAndSwap(cfg *BoltBackendConfig) error <span class="cov0" title="0">{
+        sourceName := cfg.DBFileName
+
+        // If the main DB file isn't set, then we can't proceed.
+        if sourceName == "" </span><span class="cov0" title="0">{
+                return fmt.Errorf("cannot compact DB with empty name")
+        }</span>
+        <span class="cov0" title="0">sourceFilePath := filepath.Join(cfg.DBPath, sourceName)
+        tempDestFilePath := filepath.Join(cfg.DBPath, DefaultTempDBFileName)
+
+        // Let's find out how long ago the last compaction of the source file
+        // occurred and possibly skip compacting it again now.
+        lastCompactionDate, err := lastCompactionDate(sourceFilePath)
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("cannot determine last compaction date of "+
+                        "source DB file: %v", err)
+        }</span>
+        <span class="cov0" title="0">compactAge := time.Since(lastCompactionDate)
+        if cfg.AutoCompactMinAge != 0 &amp;&amp; compactAge &lt;= cfg.AutoCompactMinAge </span><span class="cov0" title="0">{
+                log.Infof("Not compacting database file at %v, it was last "+
+                        "compacted at %v (%v ago), min age is set to %v",
+                        sourceFilePath, lastCompactionDate,
+                        compactAge.Truncate(time.Second), cfg.AutoCompactMinAge)
+                return nil
+        }</span>
+
+        <span class="cov0" title="0">log.Infof("Compacting database file at %v", sourceFilePath)
+
+        // If the old temporary DB file still exists, then we'll delete it
+        // before proceeding.
+        if _, err := os.Stat(tempDestFilePath); err == nil </span><span class="cov0" title="0">{
+                log.Infof("Found old temp DB @ %v, removing before swap",
+                        tempDestFilePath)
+
+                err = os.Remove(tempDestFilePath)
+                if err != nil </span><span class="cov0" title="0">{
+                        return fmt.Errorf("unable to remove old temp DB file: "+
+                                "%v", err)
+                }</span>
+        }
+
+        // Now that we know the staging area is clear, we'll create the new
+        // temporary DB file and close it before we write the new DB to it.
+        <span class="cov0" title="0">tempFile, err := os.Create(tempDestFilePath)
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("unable to create temp DB file: %w", err)
+        }</span>
+        <span class="cov0" title="0">if err := tempFile.Close(); err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("unable to close file: %w", err)
+        }</span>
+
+        // With the file created, we'll start the compaction and remove the
+        // temporary file all together once this method exits.
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                // This will only succeed if the rename below fails. If the
+                // compaction is successful, the file won't exist on exit
+                // anymore so no need to log an error here.
+                _ = os.Remove(tempDestFilePath)
+        }</span>()
+        <span class="cov0" title="0">c := &amp;compacter{
+                srcPath:   sourceFilePath,
+                dstPath:   tempDestFilePath,
+                dbTimeout: cfg.DBTimeout,
+        }
+        initialSize, newSize, err := c.execute()
+        if err != nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("error during compact: %w", err)
+        }</span>
+
+        <span class="cov0" title="0">log.Infof("DB compaction of %v successful, %d -&gt; %d bytes (gain=%.2fx)",
+                sourceFilePath, initialSize, newSize,
+                float64(initialSize)/float64(newSize))
+
+        // We try to store the current timestamp in a file with the suffix
+        // .last-compacted so we can figure out how long ago the last compaction
+        // was. But since this shouldn't fail the compaction process itself, we
+        // only log the error. Worst case if this file cannot be written is that
+        // we compact on every startup.
+        err = updateLastCompactionDate(sourceFilePath)
+        if err != nil </span><span class="cov0" title="0">{
+                log.Warnf("Could not update last compaction timestamp in "+
+                        "%s%s: %v", sourceFilePath,
+                        LastCompactionFileNameSuffix, err)
+        }</span>
+
+        <span class="cov0" title="0">log.Infof("Swapping old DB file from %v to %v", tempDestFilePath,
+                sourceFilePath)
+
+        // Finally, we'll attempt to atomically rename the temporary file to
+        // the main back up file. If this succeeds, then we'll only have a
+        // single file on disk once this method exits.
+        return os.Rename(tempDestFilePath, sourceFilePath)</span>
+}
+
+// lastCompactionDate returns the date the given database file was last
+// compacted or a zero time.Time if no compaction was recorded before. The
+// compaction date is read from a file in the same directory and with the same
+// name as the DB file, but with the suffix ".last-compacted".
+func lastCompactionDate(dbFile string) (time.Time, error) <span class="cov0" title="0">{
+        zeroTime := time.Unix(0, 0)
+
+        tsFile := fmt.Sprintf("%s%s", dbFile, LastCompactionFileNameSuffix)
+        if !fileExists(tsFile) </span><span class="cov0" title="0">{
+                return zeroTime, nil
+        }</span>
+
+        <span class="cov0" title="0">tsBytes, err := os.ReadFile(tsFile)
+        if err != nil </span><span class="cov0" title="0">{
+                return zeroTime, err
+        }</span>
+
+        <span class="cov0" title="0">tsNano := byteOrder.Uint64(tsBytes)
+        return time.Unix(0, int64(tsNano)), nil</span>
+}
+
+// updateLastCompactionDate stores the current time as a timestamp in a file
+// in the same directory and with the same name as the DB file, but with the
+// suffix ".last-compacted".
+func updateLastCompactionDate(dbFile string) error <span class="cov0" title="0">{
+        var tsBytes [8]byte
+        byteOrder.PutUint64(tsBytes[:], uint64(time.Now().UnixNano()))
+
+        tsFile := fmt.Sprintf("%s%s", dbFile, LastCompactionFileNameSuffix)
+        return os.WriteFile(tsFile, tsBytes[:], 0600)
+}</span>
+
+// GetTestBackend opens (or creates if doesn't exist) a bbolt or etcd
+// backed database (for testing), and returns a kvdb.Backend and a cleanup
+// func. Whether to create/open bbolt or embedded etcd database is based
+// on the TestBackend constant which is conditionally compiled with build tag.
+// The passed path is used to hold all db files, while the name is only used
+// for bbolt.
+func GetTestBackend(path, name string) (Backend, func(), error) <span class="cov0" title="0">{
+        empty := func() </span>{<span class="cov0" title="0">}</span>
+
+        // Note that for tests, we expect only one db backend build flag
+        // (or none) to be set at a time and thus one of the following switch
+        // cases should ever be true
+        <span class="cov0" title="0">switch </span>{
+        case PostgresBackend:<span class="cov0" title="0">
+                key := filepath.Join(path, name)
+                keyHash := sha256.Sum256([]byte(key))
+
+                f, err := NewPostgresFixture("test_" + hex.EncodeToString(
+                        keyHash[:]),
+                )
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, func() </span>{<span class="cov0" title="0">}</span>, err
+                }
+                <span class="cov0" title="0">return f.DB(), func() </span><span class="cov0" title="0">{
+                        _ = f.DB().Close()
+                }</span>, nil
+
+        case EtcdBackend:<span class="cov0" title="0">
+                etcdConfig, cancel, err := StartEtcdTestBackend(path, 0, 0, "")
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, empty, err
+                }</span>
+                <span class="cov0" title="0">backend, err := Open(
+                        EtcdBackendName, context.TODO(), etcdConfig,
+                )
+                return backend, cancel, err</span>
+
+        case SqliteBackend:<span class="cov0" title="0">
+                dbPath := filepath.Join(path, name)
+                keyHash := sha256.Sum256([]byte(dbPath))
+                sqliteDb, err := StartSqliteTestBackend(
+                        path, name, "test_"+hex.EncodeToString(keyHash[:]),
+                )
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, empty, err
+                }</span>
+
+                <span class="cov0" title="0">return sqliteDb, func() </span><span class="cov0" title="0">{
+                        _ = sqliteDb.Close()
+                }</span>, nil
+
+        default:<span class="cov0" title="0">
+                db, err := GetBoltBackend(&amp;BoltBackendConfig{
+                        DBPath:         path,
+                        DBFileName:     name,
+                        NoFreelistSync: true,
+                        DBTimeout:      DefaultDBTimeout,
+                        ReadOnly:       false,
+                })
+                if err != nil </span><span class="cov0" title="0">{
+                        return nil, nil, err
+                }</span>
+                <span class="cov0" title="0">return db, empty, nil</span>
+        }
+}
+</pre>
+		
+		<pre class="file" id="file1" style="display: none">// The code in this file is an adapted version of the bbolt compact command
+// implemented in this file:
+// https://github.com/etcd-io/bbolt/blob/master/cmd/bbolt/main.go
+
+//go:build !js
+// +build !js
+
+package kvdb
+
+import (
+        "encoding/hex"
+        "fmt"
+        "os"
+        "path"
+        "time"
+
+        "github.com/lightningnetwork/lnd/healthcheck"
+        "go.etcd.io/bbolt"
+)
+
+const (
+        // defaultResultFileSizeMultiplier is the default multiplier we apply to
+        // the current database size to calculate how big it could possibly get
+        // after compacting, in case the database is already at its optimal size
+        // and compaction causes it to grow. This should normally not be the
+        // case but we really want to avoid not having enough disk space for the
+        // compaction, so we apply a safety margin of 10%.
+        defaultResultFileSizeMultiplier = float64(1.1)
+
+        // defaultTxMaxSize is the default maximum number of operations that
+        // are allowed to be executed in a single transaction.
+        defaultTxMaxSize = 65536
+
+        // bucketFillSize is the fill size setting that is used for each new
+        // bucket that is created in the compacted database. This setting is not
+        // persisted and is therefore only effective for the compaction itself.
+        // Because during the compaction we only append data a fill percent of
+        // 100% is optimal for performance.
+        bucketFillSize = 1.0
+)
+
+type compacter struct {
+        srcPath   string
+        dstPath   string
+        txMaxSize int64
+
+        // dbTimeout specifies the timeout value used when opening the db.
+        dbTimeout time.Duration
+}
+
+// execute opens the source and destination databases and then compacts the
+// source into destination and returns the size of both files as a result.
+func (cmd *compacter) execute() (int64, int64, error) <span class="cov0" title="0">{
+        if cmd.txMaxSize == 0 </span><span class="cov0" title="0">{
+                cmd.txMaxSize = defaultTxMaxSize
+        }</span>
+
+        // Ensure source file exists.
+        <span class="cov0" title="0">fi, err := os.Stat(cmd.srcPath)
+        if err != nil </span><span class="cov0" title="0">{
+                return 0, 0, fmt.Errorf("error determining source database "+
+                        "size: %v", err)
+        }</span>
+        <span class="cov0" title="0">initialSize := fi.Size()
+        marginSize := float64(initialSize) * defaultResultFileSizeMultiplier
+
+        // Before opening any of the databases, let's first make sure we have
+        // enough free space on the destination file system to create a full
+        // copy of the source DB (worst-case scenario if the compaction doesn't
+        // actually shrink the file size).
+        destFolder := path.Dir(cmd.dstPath)
+        freeSpace, err := healthcheck.AvailableDiskSpace(destFolder)
+        if err != nil </span><span class="cov0" title="0">{
+                return 0, 0, fmt.Errorf("error determining free disk space on "+
+                        "%s: %v", destFolder, err)
+        }</span>
+        <span class="cov0" title="0">log.Debugf("Free disk space on compaction destination file system: "+
+                "%d bytes", freeSpace)
+        if freeSpace &lt; uint64(marginSize) </span><span class="cov0" title="0">{
+                return 0, 0, fmt.Errorf("could not start compaction, "+
+                        "destination folder %s only has %d bytes of free disk "+
+                        "space available while we need at least %d for worst-"+
+                        "case compaction", destFolder, freeSpace, uint64(marginSize))
+        }</span>
+
+        // Open source database. We open it in read only mode to avoid (and fix)
+        // possible freelist sync problems.
+        <span class="cov0" title="0">src, err := bbolt.Open(cmd.srcPath, 0444, &amp;bbolt.Options{
+                ReadOnly: true,
+                Timeout:  cmd.dbTimeout,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return 0, 0, fmt.Errorf("error opening source database: %w",
+                        err)
+        }</span>
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if err := src.Close(); err != nil </span><span class="cov0" title="0">{
+                        log.Errorf("Compact error: closing source DB: %v", err)
+                }</span>
+        }()
+
+        // Open destination database.
+        <span class="cov0" title="0">dst, err := bbolt.Open(cmd.dstPath, fi.Mode(), &amp;bbolt.Options{
+                Timeout: cmd.dbTimeout,
+        })
+        if err != nil </span><span class="cov0" title="0">{
+                return 0, 0, fmt.Errorf("error opening destination database: "+
+                        "%w", err)
+        }</span>
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                if err := dst.Close(); err != nil </span><span class="cov0" title="0">{
+                        log.Errorf("Compact error: closing dest DB: %v", err)
+                }</span>
+        }()
+
+        // Run compaction.
+        <span class="cov0" title="0">if err := cmd.compact(dst, src); err != nil </span><span class="cov0" title="0">{
+                return 0, 0, fmt.Errorf("error running compaction: %w", err)
+        }</span>
+
+        // Report stats on new size.
+        <span class="cov0" title="0">fi, err = os.Stat(cmd.dstPath)
+        if err != nil </span><span class="cov0" title="0">{
+                return 0, 0, fmt.Errorf("error determining destination "+
+                        "database size: %w", err)
+        }</span> else<span class="cov0" title="0"> if fi.Size() == 0 </span><span class="cov0" title="0">{
+                return 0, 0, fmt.Errorf("zero db size")
+        }</span>
+
+        <span class="cov0" title="0">return initialSize, fi.Size(), nil</span>
+}
+
+// compact tries to create a compacted copy of the source database in a new
+// destination database.
+func (cmd *compacter) compact(dst, src *bbolt.DB) error <span class="cov0" title="0">{
+        // Commit regularly, or we'll run out of memory for large datasets if
+        // using one transaction.
+        var size int64
+        tx, err := dst.Begin(true)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+        <span class="cov0" title="0">defer func() </span><span class="cov0" title="0">{
+                _ = tx.Rollback()
+        }</span>()
+
+        <span class="cov0" title="0">if err := cmd.walk(src, func(keys [][]byte, k, v []byte, seq uint64) error </span><span class="cov0" title="0">{
+                // On each key/value, check if we have exceeded tx size.
+                sz := int64(len(k) + len(v))
+                if size+sz &gt; cmd.txMaxSize &amp;&amp; cmd.txMaxSize != 0 </span><span class="cov0" title="0">{
+                        // Commit previous transaction.
+                        if err := tx.Commit(); err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+
+                        // Start new transaction.
+                        <span class="cov0" title="0">tx, err = dst.Begin(true)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+                        <span class="cov0" title="0">size = 0</span>
+                }
+                <span class="cov0" title="0">size += sz
+
+                // Create bucket on the root transaction if this is the first
+                // level.
+                nk := len(keys)
+                if nk == 0 </span><span class="cov0" title="0">{
+                        bkt, err := tx.CreateBucket(k)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+                        <span class="cov0" title="0">if err := bkt.SetSequence(seq); err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+                        <span class="cov0" title="0">return nil</span>
+                }
+
+                // Create buckets on subsequent levels, if necessary.
+                <span class="cov0" title="0">b := tx.Bucket(keys[0])
+                if nk &gt; 1 </span><span class="cov0" title="0">{
+                        for _, k := range keys[1:] </span><span class="cov0" title="0">{
+                                b = b.Bucket(k)
+                        }</span>
+                }
+
+                // Fill the entire page for best compaction.
+                <span class="cov0" title="0">b.FillPercent = bucketFillSize
+
+                // If there is no value then this is a bucket call.
+                if v == nil </span><span class="cov0" title="0">{
+                        bkt, err := b.CreateBucket(k)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+                        <span class="cov0" title="0">if err := bkt.SetSequence(seq); err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+                        <span class="cov0" title="0">return nil</span>
+                }
+
+                // Otherwise treat it as a key/value pair.
+                <span class="cov0" title="0">return b.Put(k, v)</span>
+        }); err != nil <span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return tx.Commit()</span>
+}
+
+// walkFunc is the type of the function called for keys (buckets and "normal"
+// values) discovered by Walk. keys is the list of keys to descend to the bucket
+// owning the discovered key/value pair k/v.
+type walkFunc func(keys [][]byte, k, v []byte, seq uint64) error
+
+// walk walks recursively the bolt database db, calling walkFn for each key it
+// finds.
+func (cmd *compacter) walk(db *bbolt.DB, walkFn walkFunc) error <span class="cov0" title="0">{
+        return db.View(func(tx *bbolt.Tx) error </span><span class="cov0" title="0">{
+                return tx.ForEach(func(name []byte, b *bbolt.Bucket) error </span><span class="cov0" title="0">{
+                        // This will log the top level buckets only to give the
+                        // user some sense of progress.
+                        log.Debugf("Compacting top level bucket '%s'",
+                                LoggableKeyName(name))
+
+                        return cmd.walkBucket(
+                                b, nil, name, nil, b.Sequence(), walkFn,
+                        )
+                }</span>)
+        })
+}
+
+// LoggableKeyName returns a printable name of the given key.
+func LoggableKeyName(key []byte) string <span class="cov0" title="0">{
+        strKey := string(key)
+        if hasSpecialChars(strKey) </span><span class="cov0" title="0">{
+                return hex.EncodeToString(key)
+        }</span>
+
+        <span class="cov0" title="0">return strKey</span>
+}
+
+// hasSpecialChars returns true if any of the characters in the given string
+// cannot be printed.
+func hasSpecialChars(s string) bool <span class="cov0" title="0">{
+        for _, b := range s </span><span class="cov0" title="0">{
+                if !(b &gt;= 'a' &amp;&amp; b &lt;= 'z') &amp;&amp; !(b &gt;= 'A' &amp;&amp; b &lt;= 'Z') &amp;&amp;
+                        !(b &gt;= '0' &amp;&amp; b &lt;= '9') &amp;&amp; b != '-' &amp;&amp; b != '_' </span><span class="cov0" title="0">{
+
+                        return true
+                }</span>
+        }
+
+        <span class="cov0" title="0">return false</span>
+}
+
+// walkBucket recursively walks through a bucket.
+func (cmd *compacter) walkBucket(b *bbolt.Bucket, keyPath [][]byte, k, v []byte,
+        seq uint64, fn walkFunc) error <span class="cov0" title="0">{
+
+        // Execute callback.
+        if err := fn(keyPath, k, v, seq); err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        // If this is not a bucket then stop.
+        <span class="cov0" title="0">if v != nil </span><span class="cov0" title="0">{
+                return nil
+        }</span>
+
+        // Iterate over each child key/value.
+        <span class="cov0" title="0">keyPath = append(keyPath, k)
+        return b.ForEach(func(k, v []byte) error </span><span class="cov0" title="0">{
+                if v == nil </span><span class="cov0" title="0">{
+                        bkt := b.Bucket(k)
+                        return cmd.walkBucket(
+                                bkt, keyPath, k, nil, bkt.Sequence(), fn,
+                        )
+                }</span>
+                <span class="cov0" title="0">return cmd.walkBucket(b, keyPath, k, v, b.Sequence(), fn)</span>
+        })
+}
+</pre>
+		
+		<pre class="file" id="file2" style="display: none">package kvdb
+
+import (
+        "path/filepath"
+        "testing"
+
+        "github.com/btcsuite/btcwallet/walletdb"
+        "github.com/stretchr/testify/require"
+)
+
+type boltFixture struct {
+        t       *testing.T
+        tempDir string
+}
+
+func NewBoltFixture(t *testing.T) *boltFixture <span class="cov0" title="0">{
+        return &amp;boltFixture{
+                t:       t,
+                tempDir: t.TempDir(),
+        }
+}</span>
+
+func (b *boltFixture) NewBackend() walletdb.DB <span class="cov0" title="0">{
+        dbPath := filepath.Join(b.tempDir)
+
+        db, err := GetBoltBackend(&amp;BoltBackendConfig{
+                DBPath:         dbPath,
+                DBFileName:     "test.db",
+                NoFreelistSync: true,
+                DBTimeout:      DefaultDBTimeout,
+                ReadOnly:       false,
+        })
+        require.NoError(b.t, err)
+
+        return db
+}</span>
+</pre>
+		
+		<pre class="file" id="file3" style="display: none">package etcd
+
+import "fmt"
+
+// Config holds etcd configuration alongside with configuration related to our higher level interface.
+//
+//nolint:ll
+type Config struct {
+        Embedded bool `long:"embedded" description:"Use embedded etcd instance instead of the external one. Note: use for testing only."`
+
+        EmbeddedClientPort uint16 `long:"embedded_client_port" description:"Client port to use for the embedded instance. Note: use for testing only."`
+
+        EmbeddedPeerPort uint16 `long:"embedded_peer_port" description:"Peer port to use for the embedded instance. Note: use for testing only."`
+
+        EmbeddedLogFile string `long:"embedded_log_file" description:"Optional log file to use for embedded instance logs. note: use for testing only."`
+
+        Host string `long:"host" description:"Etcd database host. Supports multiple hosts separated by a comma."`
+
+        User string `long:"user" description:"Etcd database user."`
+
+        Pass string `long:"pass" description:"Password for the database user."`
+
+        Namespace string `long:"namespace" description:"The etcd namespace to use."`
+
+        DisableTLS bool `long:"disabletls" description:"Disable TLS for etcd connection. Caution: use for development only."`
+
+        CertFile string `long:"cert_file" description:"Path to the TLS certificate for etcd RPC."`
+
+        KeyFile string `long:"key_file" description:"Path to the TLS private key for etcd RPC."`
+
+        InsecureSkipVerify bool `long:"insecure_skip_verify" description:"Whether we intend to skip TLS verification"`
+
+        CollectStats bool `long:"collect_stats" description:"Whether to collect etcd commit stats."`
+
+        MaxMsgSize int `long:"max_msg_size" description:"The maximum message size in bytes that we may send to etcd."`
+
+        // SingleWriter should be set to true if we intend to only allow a
+        // single writer to the database at a time.
+        SingleWriter bool
+}
+
+// CloneWithSubNamespace clones the current configuration and returns a new
+// instance with the given sub namespace applied by appending it to the main
+// namespace.
+func (c *Config) CloneWithSubNamespace(subNamespace string) *Config <span class="cov0" title="0">{
+        ns := c.Namespace
+        if len(ns) == 0 </span><span class="cov0" title="0">{
+                ns = subNamespace
+        }</span> else<span class="cov0" title="0"> {
+                ns = fmt.Sprintf("%s/%s", ns, subNamespace)
+        }</span>
+
+        <span class="cov0" title="0">return &amp;Config{
+                Embedded:           c.Embedded,
+                EmbeddedClientPort: c.EmbeddedClientPort,
+                EmbeddedPeerPort:   c.EmbeddedPeerPort,
+                Host:               c.Host,
+                User:               c.User,
+                Pass:               c.Pass,
+                Namespace:          ns,
+                DisableTLS:         c.DisableTLS,
+                CertFile:           c.CertFile,
+                KeyFile:            c.KeyFile,
+                InsecureSkipVerify: c.InsecureSkipVerify,
+                CollectStats:       c.CollectStats,
+                MaxMsgSize:         c.MaxMsgSize,
+                SingleWriter:       c.SingleWriter,
+        }</span>
+}
+
+// CloneWithSingleWriter clones the current configuration and returns a new
+// instance with the single writer property set to true.
+func (c *Config) CloneWithSingleWriter() *Config <span class="cov0" title="0">{
+        return &amp;Config{
+                Embedded:           c.Embedded,
+                EmbeddedClientPort: c.EmbeddedClientPort,
+                EmbeddedPeerPort:   c.EmbeddedPeerPort,
+                Host:               c.Host,
+                User:               c.User,
+                Pass:               c.Pass,
+                Namespace:          c.Namespace,
+                DisableTLS:         c.DisableTLS,
+                CertFile:           c.CertFile,
+                KeyFile:            c.KeyFile,
+                InsecureSkipVerify: c.InsecureSkipVerify,
+                CollectStats:       c.CollectStats,
+                MaxMsgSize:         c.MaxMsgSize,
+                SingleWriter:       true,
+        }
+}</span>
+</pre>
+		
+		<pre class="file" id="file4" style="display: none">package kvdb
+
+import (
+        "github.com/btcsuite/btcwallet/walletdb"
+)
+
+// Update opens a database read/write transaction and executes the function f
+// with the transaction passed as a parameter. After f exits, if f did not
+// error, the transaction is committed. Otherwise, if f did error, the
+// transaction is rolled back. If the rollback fails, the original error
+// returned by f is still returned. If the commit fails, the commit error is
+// returned. As callers may expect retries of the f closure (depending on the
+// database backend used), the reset function will be called before each retry
+// respectively.
+func Update(db Backend, f func(tx RwTx) error, reset func()) error <span class="cov0" title="0">{
+        return db.Update(f, reset)
+}</span>
+
+// View opens a database read transaction and executes the function f with the
+// transaction passed as a parameter. After f exits, the transaction is rolled
+// back. If f errors, its error is returned, not a rollback error (if any
+// occur). The passed reset function is called before the start of the
+// transaction and can be used to reset intermediate state. As callers may
+// expect retries of the f closure (depending on the database backend used), the
+// reset function will be called before each retry respectively.
+func View(db Backend, f func(tx RTx) error, reset func()) error <span class="cov0" title="0">{
+        return db.View(f, reset)
+}</span>
+
+// Batch is identical to the Update call, but it attempts to combine several
+// individual Update transactions into a single write database transaction on
+// an optimistic basis. This only has benefits if multiple goroutines call
+// Batch. For etcd Batch simply does an Update since combination is more complex
+// in that case due to STM retries.
+func Batch(db Backend, f func(tx RwTx) error) error <span class="cov0" title="0">{
+        // Fall back to the normal Update method if the backend doesn't support
+        // batching.
+        if _, ok := db.(walletdb.BatchDB); !ok </span><span class="cov0" title="0">{
+                // Since Batch calls handle external state reset, we can safely
+                // pass in an empty reset closure.
+                return db.Update(f, func() </span>{<span class="cov0" title="0">}</span>)
+        }
+
+        <span class="cov0" title="0">return walletdb.Batch(db, f)</span>
+}
+
+// Create initializes and opens a database for the specified type. The
+// arguments are specific to the database type driver. See the documentation
+// for the database driver for further details.
+//
+// ErrDbUnknownType will be returned if the database type is not registered.
+var Create = walletdb.Create
+
+// Backend represents an ACID database. All database access is performed
+// through read or read+write transactions.
+type Backend = walletdb.DB
+
+// Open opens an existing database for the specified type. The arguments are
+// specific to the database type driver. See the documentation for the database
+// driver for further details.
+//
+// ErrDbUnknownType will be returned if the database type is not registered.
+var Open = walletdb.Open
+
+// Driver defines a structure for backend drivers to use when they registered
+// themselves as a backend which implements the Backend interface.
+type Driver = walletdb.Driver
+
+// RBucket represents a bucket (a hierarchical structure within the
+// database) that is only allowed to perform read operations.
+type RBucket = walletdb.ReadBucket
+
+// RCursor represents a bucket cursor that can be positioned at the start or
+// end of the bucket's key/value pairs and iterate over pairs in the bucket.
+// This type is only allowed to perform database read operations.
+type RCursor = walletdb.ReadCursor
+
+// RTx represents a database transaction that can only be used for reads. If
+// a database update must occur, use a RwTx.
+type RTx = walletdb.ReadTx
+
+// RwBucket represents a bucket (a hierarchical structure within the database)
+// that is allowed to perform both read and write operations.
+type RwBucket = walletdb.ReadWriteBucket
+
+// RwCursor represents a bucket cursor that can be positioned at the start or
+// end of the bucket's key/value pairs and iterate over pairs in the bucket.
+// This abstraction is allowed to perform both database read and write
+// operations.
+type RwCursor = walletdb.ReadWriteCursor
+
+// RwTx represents a database transaction that can be used for both reads and
+// writes. When only reads are necessary, consider using a RTx instead.
+type RwTx = walletdb.ReadWriteTx
+
+// ExtendedRTx is an extension to walletdb.ReadTx to allow prefetching of keys.
+type ExtendedRTx interface {
+        RTx
+
+        // RootBucket returns the "root bucket" which is pseudo bucket used
+        // when prefetching (keys from) top level buckets.
+        RootBucket() RBucket
+}
+
+// ExtendedRBucket is an extension to walletdb.ReadBucket to allow prefetching
+// of all values inside buckets.
+type ExtendedRBucket interface {
+        RBucket
+
+        // Prefetch will attempt to prefetch all values under a path.
+        Prefetch(paths ...[]string)
+
+        // ForAll is an optimized version of ForEach.
+        //
+        // NOTE: ForAll differs from ForEach in that no additional queries can
+        // be executed within the callback.
+        ForAll(func(k, v []byte) error) error
+}
+
+// Prefetch will attempt to prefetch all values under a path from the passed
+// bucket.
+func Prefetch(b RBucket, paths ...[]string) <span class="cov0" title="0">{
+        if bucket, ok := b.(ExtendedRBucket); ok </span><span class="cov0" title="0">{
+                bucket.Prefetch(paths...)
+        }</span>
+}
+
+// ForAll is an optimized version of ForEach with the limitation that no
+// additional queries can be executed within the callback.
+func ForAll(b RBucket, cb func(k, v []byte) error) error <span class="cov0" title="0">{
+        if bucket, ok := b.(ExtendedRBucket); ok </span><span class="cov0" title="0">{
+                return bucket.ForAll(cb)
+        }</span>
+
+        <span class="cov0" title="0">return b.ForEach(cb)</span>
+}
+
+// RootBucket is a wrapper to ExtendedRTx.RootBucket which does nothing if
+// the implementation doesn't have ExtendedRTx.
+func RootBucket(t RTx) RBucket <span class="cov0" title="0">{
+        if tx, ok := t.(ExtendedRTx); ok </span><span class="cov0" title="0">{
+                return tx.RootBucket()
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+var (
+        // ErrBucketNotFound is returned when trying to access a bucket that
+        // has not been created yet.
+        ErrBucketNotFound = walletdb.ErrBucketNotFound
+
+        // ErrBucketExists is returned when creating a bucket that already
+        // exists.
+        ErrBucketExists = walletdb.ErrBucketExists
+
+        // ErrDatabaseNotOpen is returned when a database instance is accessed
+        // before it is opened or after it is closed.
+        ErrDatabaseNotOpen = walletdb.ErrDbNotOpen
+
+        // ErrDbDoesNotExist is returned when a database instance is opened
+        // but it does not exist.
+        ErrDbDoesNotExist = walletdb.ErrDbDoesNotExist
+)
+</pre>
+		
+		<pre class="file" id="file5" style="display: none">//go:build !kvdb_etcd
+// +build !kvdb_etcd
+
+package kvdb
+
+import (
+        "fmt"
+
+        "github.com/lightningnetwork/lnd/kvdb/etcd"
+)
+
+// EtcdBackend is conditionally set to false when the kvdb_etcd build tag is not
+// defined. This will allow testing of other database backends.
+const EtcdBackend = false
+
+var errEtcdNotAvailable = fmt.Errorf("etcd backend not available")
+
+// StartEtcdTestBackend  is a stub returning nil, and errEtcdNotAvailable error.
+func StartEtcdTestBackend(path string, clientPort, peerPort uint16,
+        logFile string) (*etcd.Config, func(), error) <span class="cov0" title="0">{
+
+        return nil, func() </span>{<span class="cov0" title="0">}</span>, errEtcdNotAvailable
+}
+</pre>
+		
+		<pre class="file" id="file6" style="display: none">//go:build !kvdb_postgres
+// +build !kvdb_postgres
+
+package kvdb
+
+import (
+        "errors"
+
+        "github.com/lightningnetwork/lnd/kvdb/postgres"
+)
+
+const PostgresBackend = false
+
+func NewPostgresFixture(dbName string) (postgres.Fixture, error) <span class="cov0" title="0">{
+        return nil, errors.New("postgres backend not available")
+}</span>
+
+func StartEmbeddedPostgres() (func() error, error) <span class="cov0" title="0">{
+        return nil, errors.New("postgres backend not available")
+}</span>
+</pre>
+		
+		<pre class="file" id="file7" style="display: none">//go:build !kvdb_sqlite || (windows &amp;&amp; (arm || 386)) || (linux &amp;&amp; (ppc64 || mips || mipsle || mips64))
+
+package kvdb
+
+import (
+        "fmt"
+        "runtime"
+
+        "github.com/btcsuite/btcwallet/walletdb"
+)
+
+var errSqliteNotAvailable = fmt.Errorf("sqlite backend not available either "+
+        "due to the `kvdb_sqlite` build tag not being set, or due to this "+
+        "OS(%s) and/or architecture(%s) not being supported", runtime.GOOS,
+        runtime.GOARCH)
+
+// SqliteBackend is conditionally set to false when the kvdb_sqlite build tag is
+// not defined. This will allow testing of other database backends.
+const SqliteBackend = false
+
+// StartSqliteTestBackend is a stub returning nil, and errSqliteNotAvailable
+// error.
+func StartSqliteTestBackend(path, name, table string) (walletdb.DB, error) <span class="cov0" title="0">{
+        return nil, errSqliteNotAvailable
+}</span>
+</pre>
+		
+		<pre class="file" id="file8" style="display: none">package kvdb
+
+import (
+        "github.com/btcsuite/btclog/v2"
+        "github.com/lightningnetwork/lnd/kvdb/sqlbase"
+)
+
+// log is a logger that is initialized as disabled.  This means the package will
+// not perform any logging by default until a logger is set.
+var log = btclog.Disabled
+
+// UseLogger uses a specified Logger to output package logging info.
+func UseLogger(logger btclog.Logger) <span class="cov0" title="0">{
+        log = logger
+
+        sqlbase.UseLogger(log)
+}</span>
+</pre>
+		
+		<pre class="file" id="file9" style="display: none">package sqlbase
+
+import (
+        "database/sql"
+        "fmt"
+        "sync"
+
+        _ "github.com/jackc/pgx/v4/stdlib"
+)
+
+// dbConn stores the actual connection and a user count.
+type dbConn struct {
+        db    *sql.DB
+        count int
+}
+
+// dbConnSet stores a set of connections.
+type dbConnSet struct {
+        dbConn         map[string]*dbConn
+        maxConnections int
+
+        // mu is used to guard access to the dbConn map.
+        mu sync.Mutex
+}
+
+// newDbConnSet initializes a new set of connections.
+func newDbConnSet(maxConnections int) *dbConnSet <span class="cov0" title="0">{
+        return &amp;dbConnSet{
+                dbConn:         make(map[string]*dbConn),
+                maxConnections: maxConnections,
+        }
+}</span>
+
+// Open opens a new database connection. If a connection already exists for the
+// given dsn, the existing connection is returned.
+func (d *dbConnSet) Open(driver, dsn string) (*sql.DB, error) <span class="cov0" title="0">{
+        d.mu.Lock()
+        defer d.mu.Unlock()
+
+        if dbConn, ok := d.dbConn[dsn]; ok </span><span class="cov0" title="0">{
+                dbConn.count++
+
+                return dbConn.db, nil
+        }</span>
+
+        <span class="cov0" title="0">db, err := sql.Open(driver, dsn)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        // Limit maximum number of open connections. This is useful to prevent
+        // the server from running out of connections and returning an error.
+        // With this client-side limit in place, lnd will wait for a connection
+        // to become available.
+        <span class="cov0" title="0">if d.maxConnections != 0 </span><span class="cov0" title="0">{
+                db.SetMaxOpenConns(d.maxConnections)
+        }</span>
+
+        <span class="cov0" title="0">d.dbConn[dsn] = &amp;dbConn{
+                db:    db,
+                count: 1,
+        }
+
+        return db, nil</span>
+}
+
+// Close closes the connection with the given dsn. If there are still other
+// users of the same connection, this function does nothing.
+func (d *dbConnSet) Close(dsn string) error <span class="cov0" title="0">{
+        d.mu.Lock()
+        defer d.mu.Unlock()
+
+        dbConn, ok := d.dbConn[dsn]
+        if !ok </span><span class="cov0" title="0">{
+                return fmt.Errorf("connection not found: %v", dsn)
+        }</span>
+
+        // Reduce user count.
+        <span class="cov0" title="0">dbConn.count--
+
+        // Do not close if there are other users.
+        if dbConn.count &gt; 0 </span><span class="cov0" title="0">{
+                return nil
+        }</span>
+
+        // Close connection.
+        <span class="cov0" title="0">delete(d.dbConn, dsn)
+
+        return dbConn.db.Close()</span>
+}
+</pre>
+		
+		<pre class="file" id="file10" style="display: none">package sqlbase
+
+import "github.com/btcsuite/btclog/v2"
+
+// log is a logger that is initialized as disabled.  This means the package will
+// not perform any logging by default until a logger is set.
+var log = btclog.Disabled
+
+// UseLogger uses a specified Logger to output package logging info.
+func UseLogger(logger btclog.Logger) <span class="cov0" title="0">{
+        log = logger
+}</span>
+</pre>
+		
+		<pre class="file" id="file11" style="display: none">//go:build !kvdb_postgres &amp;&amp; (!kvdb_sqlite || (windows &amp;&amp; (arm || 386)) || (linux &amp;&amp; (ppc64 || mips || mipsle || mips64)))
+
+package sqlbase
+
+func Init(maxConnections int) {<span class="cov0" title="0">}</span>
+</pre>
+		
+		<pre class="file" id="file12" style="display: none">package kvdb
+
+type KV struct {
+        key string
+        val string
+}
+
+func reverseKVs(a []KV) []KV <span class="cov0" title="0">{
+        for i, j := 0, len(a)-1; i &lt; j; i, j = i+1, j-1 </span><span class="cov0" title="0">{
+                a[i], a[j] = a[j], a[i]
+        }</span>
+
+        <span class="cov0" title="0">return a</span>
+}
+</pre>
+		
+		<pre class="file" id="file13" style="display: none">package kvdb
+
+import (
+        "fmt"
+        "os"
+        "testing"
+)
+
+// RunTests is a helper function to run the tests in a package with
+// initialization and tear-down of a test kvdb backend.
+func RunTests(m *testing.M) <span class="cov0" title="0">{
+        var close func() error
+        if PostgresBackend </span><span class="cov0" title="0">{
+                var err error
+                close, err = StartEmbeddedPostgres()
+                if err != nil </span><span class="cov0" title="0">{
+                        fmt.Printf("Error: %v\n", err)
+                        os.Exit(1)
+                }</span>
+        }
+
+        // os.Exit() does not respect defer statements
+        <span class="cov0" title="0">code := m.Run()
+
+        if close != nil </span><span class="cov0" title="0">{
+                err := close()
+                if err != nil </span><span class="cov0" title="0">{
+                        fmt.Printf("Error: %v\n", err)
+                }</span>
+        }
+
+        <span class="cov0" title="0">os.Exit(code)</span>
+
+}
+</pre>
+		
+		<pre class="file" id="file14" style="display: none">package macaroons
+
+import (
+        "context"
+        "encoding/hex"
+
+        macaroon "gopkg.in/macaroon.v2"
+)
+
+// MacaroonCredential wraps a macaroon to implement the
+// credentials.PerRPCCredentials interface.
+type MacaroonCredential struct {
+        *macaroon.Macaroon
+}
+
+// RequireTransportSecurity implements the PerRPCCredentials interface.
+func (m MacaroonCredential) RequireTransportSecurity() bool <span class="cov0" title="0">{
+        return true
+}</span>
+
+// GetRequestMetadata implements the PerRPCCredentials interface. This method
+// is required in order to pass the wrapped macaroon into the gRPC context.
+// With this, the macaroon will be available within the request handling scope
+// of the ultimate gRPC server implementation.
+func (m MacaroonCredential) GetRequestMetadata(ctx context.Context,
+        uri ...string) (map[string]string, error) <span class="cov0" title="0">{
+
+        macBytes, err := m.MarshalBinary()
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">md := make(map[string]string)
+        md["macaroon"] = hex.EncodeToString(macBytes)
+        return md, nil</span>
+}
+
+// NewMacaroonCredential returns a copy of the passed macaroon wrapped in a
+// MacaroonCredential struct which implements PerRPCCredentials.
+func NewMacaroonCredential(m *macaroon.Macaroon) (MacaroonCredential, error) <span class="cov0" title="0">{
+        ms := MacaroonCredential{}
+
+        // The macaroon library's Clone() method has a subtle bug that doesn't
+        // correctly clone all caveats. We need to use our own, safe clone
+        // function instead.
+        var err error
+        ms.Macaroon, err = SafeCopyMacaroon(m)
+        if err != nil </span><span class="cov0" title="0">{
+                return ms, err
+        }</span>
+
+        <span class="cov0" title="0">return ms, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file15" style="display: none">package macaroons
+
+import (
+        "bytes"
+        "fmt"
+
+        "golang.org/x/net/context"
+        "gopkg.in/macaroon-bakery.v2/bakery"
+        "gopkg.in/macaroon.v2"
+)
+
+// inMemoryRootKeyStore is a simple implementation of bakery.RootKeyStore that
+// stores a single root key in memory.
+type inMemoryRootKeyStore struct {
+        rootKey []byte
+}
+
+// A compile-time check to ensure that inMemoryRootKeyStore implements
+// bakery.RootKeyStore.
+var _ bakery.RootKeyStore = (*inMemoryRootKeyStore)(nil)
+
+// Get returns the root key for the given id. If the item is not there, it
+// returns ErrNotFound.
+func (s *inMemoryRootKeyStore) Get(_ context.Context, id []byte) ([]byte,
+        error) <span class="cov0" title="0">{
+
+        if !bytes.Equal(id, DefaultRootKeyID) </span><span class="cov0" title="0">{
+                return nil, bakery.ErrNotFound
+        }</span>
+
+        <span class="cov0" title="0">return s.rootKey, nil</span>
+}
+
+// RootKey returns the root key to be used for making a new macaroon, and an id
+// that can be used to look it up later with the Get method.
+func (s *inMemoryRootKeyStore) RootKey(context.Context) ([]byte, []byte,
+        error) <span class="cov0" title="0">{
+
+        return s.rootKey, DefaultRootKeyID, nil
+}</span>
+
+// BakeFromRootKey creates a new macaroon that is derived from the given root
+// key and permissions.
+func BakeFromRootKey(rootKey []byte,
+        permissions []bakery.Op) (*macaroon.Macaroon, error) <span class="cov0" title="0">{
+
+        if len(rootKey) != RootKeyLen </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("root key must be %d bytes, is %d",
+                        RootKeyLen, len(rootKey))
+        }</span>
+
+        <span class="cov0" title="0">rootKeyStore := &amp;inMemoryRootKeyStore{
+                rootKey: rootKey,
+        }
+
+        service, err := NewService(rootKeyStore, "lnd", false)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("unable to create service: %w", err)
+        }</span>
+
+        <span class="cov0" title="0">ctx := context.Background()
+        mac, err := service.NewMacaroon(ctx, DefaultRootKeyID, permissions...)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, fmt.Errorf("unable to create macaroon: %w", err)
+        }</span>
+
+        <span class="cov0" title="0">return mac.M(), nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file16" style="display: none">package macaroons
+
+import (
+        "bytes"
+        "context"
+        "errors"
+        "fmt"
+        "net"
+        "strings"
+        "time"
+
+        "google.golang.org/grpc/peer"
+        "gopkg.in/macaroon-bakery.v2/bakery/checkers"
+        macaroon "gopkg.in/macaroon.v2"
+)
+
+const (
+        // CondLndCustom is the first party caveat condition name that is used
+        // for all custom caveats in lnd. Every custom caveat entry will be
+        // encoded as the string
+        // "lnd-custom &lt;custom-caveat-name&gt; &lt;custom-caveat-condition&gt;"
+        // in the serialized macaroon. We choose a single space as the delimiter
+        // between the because that is also used by the macaroon bakery library.
+        CondLndCustom = "lnd-custom"
+
+        // CondIPRange is the caveat condition name that is used for tying an IP
+        // range to a macaroon.
+        CondIPRange = "iprange"
+)
+
+// CustomCaveatAcceptor is an interface that contains a single method for
+// checking whether a macaroon with the given custom caveat name should be
+// accepted or not.
+type CustomCaveatAcceptor interface {
+        // CustomCaveatSupported returns nil if a macaroon with the given custom
+        // caveat name can be validated by any component in lnd (for example an
+        // RPC middleware). If no component is registered to handle the given
+        // custom caveat then an error must be returned. This method only checks
+        // the availability of a validating component, not the validity of the
+        // macaroon itself.
+        CustomCaveatSupported(customCaveatName string) error
+}
+
+// Constraint type adds a layer of indirection over macaroon caveats.
+type Constraint func(*macaroon.Macaroon) error
+
+// Checker type adds a layer of indirection over macaroon checkers. A Checker
+// returns the name of the checker and the checker function; these are used to
+// register the function with the bakery service's compound checker.
+type Checker func() (string, checkers.Func)
+
+// AddConstraints returns new derived macaroon by applying every passed
+// constraint and tightening its restrictions.
+func AddConstraints(mac *macaroon.Macaroon,
+        cs ...Constraint) (*macaroon.Macaroon, error) <span class="cov0" title="0">{
+
+        // The macaroon library's Clone() method has a subtle bug that doesn't
+        // correctly clone all caveats. We need to use our own, safe clone
+        // function instead.
+        newMac, err := SafeCopyMacaroon(mac)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">for _, constraint := range cs </span><span class="cov0" title="0">{
+                if err := constraint(newMac); err != nil </span><span class="cov0" title="0">{
+                        return nil, err
+                }</span>
+        }
+        <span class="cov0" title="0">return newMac, nil</span>
+}
+
+// Each *Constraint function is a functional option, which takes a pointer
+// to the macaroon and adds another restriction to it. For each *Constraint,
+// the corresponding *Checker is provided if not provided by default.
+
+// TimeoutConstraint restricts the lifetime of the macaroon
+// to the amount of seconds given.
+func TimeoutConstraint(seconds int64) func(*macaroon.Macaroon) error <span class="cov0" title="0">{
+        return func(mac *macaroon.Macaroon) error </span><span class="cov0" title="0">{
+                macaroonTimeout := time.Duration(seconds)
+                requestTimeout := time.Now().Add(time.Second * macaroonTimeout)
+                caveat := checkers.TimeBeforeCaveat(requestTimeout)
+                return mac.AddFirstPartyCaveat([]byte(caveat.Condition))
+        }</span>
+}
+
+// IPLockConstraint locks a macaroon to a specific IP address. If ipAddr is an
+// empty string, this constraint does nothing to accommodate  default value's
+// desired behavior.
+func IPLockConstraint(ipAddr string) func(*macaroon.Macaroon) error <span class="cov0" title="0">{
+        return func(mac *macaroon.Macaroon) error </span><span class="cov0" title="0">{
+                if ipAddr != "" </span><span class="cov0" title="0">{
+                        macaroonIPAddr := net.ParseIP(ipAddr)
+                        if macaroonIPAddr == nil </span><span class="cov0" title="0">{
+                                return fmt.Errorf("incorrect macaroon IP-" +
+                                        "lock address")
+                        }</span>
+                        <span class="cov0" title="0">caveat := checkers.Condition("ipaddr",
+                                macaroonIPAddr.String())
+
+                        return mac.AddFirstPartyCaveat([]byte(caveat))</span>
+                }
+
+                <span class="cov0" title="0">return nil</span>
+        }
+}
+
+// IPRangeLockConstraint locks a macaroon to a specific IP address range. If
+// ipRange is an empty string, this constraint does nothing to accommodate
+// default value's desired behavior.
+func IPRangeLockConstraint(ipRange string) func(*macaroon.Macaroon) error <span class="cov0" title="0">{
+        return func(mac *macaroon.Macaroon) error </span><span class="cov0" title="0">{
+                if ipRange != "" </span><span class="cov0" title="0">{
+                        _, parsedNet, err := net.ParseCIDR(ipRange)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return fmt.Errorf("incorrect macaroon IP "+
+                                        "range: %w", err)
+                        }</span>
+                        <span class="cov0" title="0">caveat := checkers.Condition(
+                                CondIPRange, parsedNet.String(),
+                        )
+
+                        return mac.AddFirstPartyCaveat([]byte(caveat))</span>
+                }
+
+                <span class="cov0" title="0">return nil</span>
+        }
+}
+
+// IPLockChecker accepts client IP from the validation context and compares it
+// with IP locked in the macaroon. It is of the `Checker` type.
+func IPLockChecker() (string, checkers.Func) <span class="cov0" title="0">{
+        return "ipaddr", func(ctx context.Context, cond, arg string) error </span><span class="cov0" title="0">{
+                // Get peer info and extract IP address from it for macaroon
+                // check.
+                pr, ok := peer.FromContext(ctx)
+                if !ok </span><span class="cov0" title="0">{
+                        return fmt.Errorf("unable to get peer info from context")
+                }</span>
+                <span class="cov0" title="0">peerAddr, _, err := net.SplitHostPort(pr.Addr.String())
+                if err != nil </span><span class="cov0" title="0">{
+                        return fmt.Errorf("unable to parse peer address")
+                }</span>
+
+                <span class="cov0" title="0">if !net.ParseIP(arg).Equal(net.ParseIP(peerAddr)) </span><span class="cov0" title="0">{
+                        msg := "macaroon locked to different IP address"
+                        return fmt.Errorf(msg)
+                }</span>
+                <span class="cov0" title="0">return nil</span>
+        }
+}
+
+// IPRangeLockChecker accepts client IP range from the validation context and
+// compares it with the IP range locked in the macaroon. It is of the `Checker`
+// type.
+func IPRangeLockChecker() (string, checkers.Func) <span class="cov0" title="0">{
+        return CondIPRange, func(ctx context.Context, cond, arg string) error </span><span class="cov0" title="0">{
+                // Get peer info and extract IP range from it for macaroon
+                // check.
+                pr, ok := peer.FromContext(ctx)
+                if !ok </span><span class="cov0" title="0">{
+                        return errors.New("unable to get peer info from " +
+                                "context")
+                }</span>
+                <span class="cov0" title="0">peerAddr, _, err := net.SplitHostPort(pr.Addr.String())
+                if err != nil </span><span class="cov0" title="0">{
+                        return fmt.Errorf("unable to parse peer address: %w",
+                                err)
+                }</span>
+
+                <span class="cov0" title="0">_, ipNet, err := net.ParseCIDR(arg)
+                if err != nil </span><span class="cov0" title="0">{
+                        return fmt.Errorf("unable to parse macaroon IP "+
+                                "range: %w", err)
+                }</span>
+
+                <span class="cov0" title="0">if !ipNet.Contains(net.ParseIP(peerAddr)) </span><span class="cov0" title="0">{
+                        return errors.New("macaroon locked to different " +
+                                "IP range")
+                }</span>
+
+                <span class="cov0" title="0">return nil</span>
+        }
+}
+
+// CustomConstraint returns a function that adds a custom caveat condition to
+// a macaroon.
+func CustomConstraint(name, condition string) func(*macaroon.Macaroon) error <span class="cov0" title="0">{
+        return func(mac *macaroon.Macaroon) error </span><span class="cov0" title="0">{
+                // We rely on a name being set for the interception, so don't
+                // allow creating a caveat without a name in the first place.
+                if name == "" </span><span class="cov0" title="0">{
+                        return fmt.Errorf("name cannot be empty")
+                }</span>
+
+                // The inner (custom) condition is optional.
+                <span class="cov0" title="0">outerCondition := fmt.Sprintf("%s %s", name, condition)
+                if condition == "" </span><span class="cov0" title="0">{
+                        outerCondition = name
+                }</span>
+
+                <span class="cov0" title="0">caveat := checkers.Condition(CondLndCustom, outerCondition)
+                return mac.AddFirstPartyCaveat([]byte(caveat))</span>
+        }
+}
+
+// CustomChecker returns a Checker function that is used by the macaroon bakery
+// library to check whether a custom caveat is supported by lnd in general or
+// not. Support in this context means: An additional gRPC interceptor was set up
+// that validates the content (=condition) of the custom caveat. If such an
+// interceptor is in place then the acceptor should return a nil error. If no
+// interceptor exists for the custom caveat in the macaroon of a request context
+// then a non-nil error should be returned and the macaroon is rejected as a
+// whole.
+func CustomChecker(acceptor CustomCaveatAcceptor) Checker <span class="cov0" title="0">{
+        // We return the general name of all lnd custom macaroons and a function
+        // that splits the outer condition to extract the name of the custom
+        // condition and the condition itself. In the bakery library that's used
+        // here, a caveat always has the following form:
+        //
+        // &lt;condition-name&gt; &lt;condition-value&gt;
+        //
+        // Because a checker function needs to be bound to the condition name we
+        // have to choose a static name for the first part ("lnd-custom", see
+        // CondLndCustom. Otherwise we'd need to register a new Checker function
+        // for each custom caveat that's registered. To allow for a generic
+        // custom caveat handling, we just add another layer and expand the
+        // initial &lt;condition-value&gt; into
+        //
+        // "&lt;custom-condition-name&gt; &lt;custom-condition-value&gt;"
+        //
+        // The full caveat string entry of a macaroon that uses this generic
+        // mechanism would therefore look like this:
+        //
+        // "lnd-custom &lt;custom-condition-name&gt; &lt;custom-condition-value&gt;"
+        checker := func(_ context.Context, _, outerCondition string) error </span><span class="cov0" title="0">{
+                if outerCondition != strings.TrimSpace(outerCondition) </span><span class="cov0" title="0">{
+                        return fmt.Errorf("unexpected white space found in " +
+                                "caveat condition")
+                }</span>
+                <span class="cov0" title="0">if outerCondition == "" </span><span class="cov0" title="0">{
+                        return fmt.Errorf("expected custom caveat, got empty " +
+                                "string")
+                }</span>
+
+                // The condition part of the original caveat is now name and
+                // condition of the custom caveat (we add a layer of conditions
+                // to allow one custom checker to work for all custom lnd
+                // conditions that implement arbitrary business logic).
+                <span class="cov0" title="0">parts := strings.Split(outerCondition, " ")
+                customCaveatName := parts[0]
+
+                return acceptor.CustomCaveatSupported(customCaveatName)</span>
+        }
+
+        <span class="cov0" title="0">return func() (string, checkers.Func) </span><span class="cov0" title="0">{
+                return CondLndCustom, checker
+        }</span>
+}
+
+// HasCustomCaveat tests if the given macaroon has a custom caveat with the
+// given custom caveat name.
+func HasCustomCaveat(mac *macaroon.Macaroon, customCaveatName string) bool <span class="cov0" title="0">{
+        if mac == nil </span><span class="cov0" title="0">{
+                return false
+        }</span>
+
+        <span class="cov0" title="0">caveatPrefix := []byte(fmt.Sprintf(
+                "%s %s", CondLndCustom, customCaveatName,
+        ))
+        for _, caveat := range mac.Caveats() </span><span class="cov0" title="0">{
+                if bytes.HasPrefix(caveat.Id, caveatPrefix) </span><span class="cov0" title="0">{
+                        return true
+                }</span>
+        }
+
+        <span class="cov0" title="0">return false</span>
+}
+
+// GetCustomCaveatCondition returns the custom caveat condition for the given
+// custom caveat name from the given macaroon.
+func GetCustomCaveatCondition(mac *macaroon.Macaroon,
+        customCaveatName string) string <span class="cov0" title="0">{
+
+        if mac == nil </span><span class="cov0" title="0">{
+                return ""
+        }</span>
+
+        <span class="cov0" title="0">caveatPrefix := []byte(fmt.Sprintf(
+                "%s %s ", CondLndCustom, customCaveatName,
+        ))
+        for _, caveat := range mac.Caveats() </span><span class="cov0" title="0">{
+                // The caveat id has a format of
+                // "lnd-custom [custom-caveat-name] [custom-caveat-condition]"
+                // and we only want the condition part. If we match the prefix
+                // part we return the condition that comes after the prefix.
+                if bytes.HasPrefix(caveat.Id, caveatPrefix) </span><span class="cov0" title="0">{
+                        caveatSplit := strings.SplitN(
+                                string(caveat.Id),
+                                string(caveatPrefix),
+                                2,
+                        )
+                        if len(caveatSplit) == 2 </span><span class="cov0" title="0">{
+                                return caveatSplit[1]
+                        }</span>
+                }
+        }
+
+        // We didn't find a condition for the given custom caveat name.
+        <span class="cov0" title="0">return ""</span>
+}
+</pre>
+		
+		<pre class="file" id="file17" style="display: none">package macaroons
+
+import (
+        "context"
+        "fmt"
+)
+
+var (
+        // RootKeyIDContextKey is the key to get rootKeyID from context.
+        RootKeyIDContextKey = contextKey{"rootkeyid"}
+
+        // ErrContextRootKeyID is used when the supplied context doesn't have
+        // a root key ID.
+        ErrContextRootKeyID = fmt.Errorf("failed to read root key ID " +
+                "from context")
+)
+
+// contextKey is the type we use to identify values in the context.
+type contextKey struct {
+        Name string
+}
+
+// ContextWithRootKeyID passes the root key ID value to context.
+func ContextWithRootKeyID(ctx context.Context,
+        value interface{}) context.Context <span class="cov10" title="2">{
+
+        return context.WithValue(ctx, RootKeyIDContextKey, value)
+}</span>
+
+// RootKeyIDFromContext retrieves the root key ID from context using the key
+// RootKeyIDContextKey.
+func RootKeyIDFromContext(ctx context.Context) ([]byte, error) <span class="cov0" title="0">{
+        id, ok := ctx.Value(RootKeyIDContextKey).([]byte)
+        if !ok </span><span class="cov0" title="0">{
+                return nil, ErrContextRootKeyID
+        }</span>
+
+        // Check that the id is not empty.
+        <span class="cov0" title="0">if len(id) == 0 </span><span class="cov0" title="0">{
+                return nil, ErrMissingRootKeyID
+        }</span>
+
+        <span class="cov0" title="0">return id, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file18" style="display: none">package macaroons
+
+import (
+        "context"
+        "encoding/hex"
+        "fmt"
+
+        "google.golang.org/grpc/metadata"
+        "gopkg.in/macaroon-bakery.v2/bakery"
+        "gopkg.in/macaroon-bakery.v2/bakery/checkers"
+        macaroon "gopkg.in/macaroon.v2"
+)
+
+var (
+        // ErrMissingRootKeyID specifies the root key ID is missing.
+        ErrMissingRootKeyID = fmt.Errorf("missing root key ID")
+
+        // ErrDeletionForbidden is used when attempting to delete the
+        // DefaultRootKeyID or the encryptedKeyID.
+        ErrDeletionForbidden = fmt.Errorf("the specified ID cannot be deleted")
+
+        // PermissionEntityCustomURI is a special entity name for a permission
+        // that does not describe an entity:action pair but instead specifies a
+        // specific URI that needs to be granted access to. This can be used for
+        // more fine-grained permissions where a macaroon only grants access to
+        // certain methods instead of a whole list of methods that define the
+        // same entity:action pairs. For example: uri:/lnrpc.Lightning/GetInfo
+        // only gives access to the GetInfo call.
+        PermissionEntityCustomURI = "uri"
+
+        // ErrUnknownVersion is returned when a macaroon is of an unknown
+        // is presented.
+        ErrUnknownVersion = fmt.Errorf("unknown macaroon version")
+
+        // ErrInvalidID is returned when a macaroon ID is invalid.
+        ErrInvalidID = fmt.Errorf("invalid ID")
+)
+
+// MacaroonValidator is an interface type that can check if macaroons are valid.
+type MacaroonValidator interface {
+        // ValidateMacaroon extracts the macaroon from the context's gRPC
+        // metadata, checks its signature, makes sure all specified permissions
+        // for the called method are contained within and finally ensures all
+        // caveat conditions are met. A non-nil error is returned if any of the
+        // checks fail.
+        ValidateMacaroon(ctx context.Context,
+                requiredPermissions []bakery.Op, fullMethod string) error
+}
+
+// ExtendedRootKeyStore is an interface augments the existing
+// macaroons.RootKeyStorage interface by adding a number of additional utility
+// methods such as encrypting and decrypting the root key given a password.
+type ExtendedRootKeyStore interface {
+        bakery.RootKeyStore
+
+        // Close closes the RKS and zeros out any in-memory encryption keys.
+        Close() error
+
+        // CreateUnlock calls the underlying root key store's CreateUnlock and
+        // returns the result.
+        CreateUnlock(password *[]byte) error
+
+        // ListMacaroonIDs returns all the root key ID values except the value
+        // of encryptedKeyID.
+        ListMacaroonIDs(ctxt context.Context) ([][]byte, error)
+
+        // DeleteMacaroonID removes one specific root key ID. If the root key
+        // ID is found and deleted, it will be returned.
+        DeleteMacaroonID(ctxt context.Context, rootKeyID []byte) ([]byte, error)
+
+        // ChangePassword calls the underlying root key store's ChangePassword
+        // and returns the result.
+        ChangePassword(oldPw, newPw []byte) error
+
+        // GenerateNewRootKey calls the underlying root key store's
+        // GenerateNewRootKey and returns the result.
+        GenerateNewRootKey() error
+
+        // SetRootKey calls the underlying root key store's SetRootKey and
+        // returns the result.
+        SetRootKey(rootKey []byte) error
+}
+
+// Service encapsulates bakery.Bakery and adds a Close() method that zeroes the
+// root key service encryption keys, as well as utility methods to validate a
+// macaroon against the bakery and gRPC middleware for macaroon-based auth.
+type Service struct {
+        bakery.Bakery
+
+        rks bakery.RootKeyStore
+
+        // ExternalValidators is a map between an absolute gRPC URIs and the
+        // corresponding external macaroon validator to be used for that URI.
+        // If no external validator for an URI is specified, the service will
+        // use the internal validator.
+        ExternalValidators map[string]MacaroonValidator
+
+        // StatelessInit denotes if the service was initialized in the stateless
+        // mode where no macaroon files should be created on disk.
+        StatelessInit bool
+}
+
+// NewService returns a service backed by the macaroon DB backend. The `checks`
+// argument can be any of the `Checker` type functions defined in this package,
+// or a custom checker if desired. This constructor prevents double-registration
+// of checkers to prevent panics, so listing the same checker more than once is
+// not harmful. Default checkers, such as those for `allow`, `time-before`,
+// `declared`, and `error` caveats are registered automatically and don't need
+// to be added.
+func NewService(keyStore bakery.RootKeyStore, location string,
+        statelessInit bool, checks ...Checker) (*Service, error) <span class="cov0" title="0">{
+
+        macaroonParams := bakery.BakeryParams{
+                Location:     location,
+                RootKeyStore: keyStore,
+                // No third-party caveat support for now.
+                // TODO(aakselrod): Add third-party caveat support.
+                Locator: nil,
+                Key:     nil,
+        }
+
+        svc := bakery.New(macaroonParams)
+
+        // Register all custom caveat checkers with the bakery's checker.
+        // TODO(aakselrod): Add more checks as required.
+        checker := svc.Checker.FirstPartyCaveatChecker.(*checkers.Checker)
+        for _, check := range checks </span><span class="cov0" title="0">{
+                cond, fun := check()
+                if !isRegistered(checker, cond) </span><span class="cov0" title="0">{
+                        checker.Register(cond, "std", fun)
+                }</span>
+        }
+
+        <span class="cov0" title="0">return &amp;Service{
+                Bakery:             *svc,
+                rks:                keyStore,
+                ExternalValidators: make(map[string]MacaroonValidator),
+                StatelessInit:      statelessInit,
+        }, nil</span>
+}
+
+// isRegistered checks to see if the required checker has already been
+// registered in order to avoid a panic caused by double registration.
+func isRegistered(c *checkers.Checker, name string) bool <span class="cov0" title="0">{
+        if c == nil </span><span class="cov0" title="0">{
+                return false
+        }</span>
+
+        <span class="cov0" title="0">for _, info := range c.Info() </span><span class="cov0" title="0">{
+                if info.Name == name &amp;&amp;
+                        info.Prefix == "" &amp;&amp;
+                        info.Namespace == "std" </span><span class="cov0" title="0">{
+                        return true
+                }</span>
+        }
+
+        <span class="cov0" title="0">return false</span>
+}
+
+// RegisterExternalValidator registers a custom, external macaroon validator for
+// the specified absolute gRPC URI. That validator is then fully responsible to
+// make sure any macaroon passed for a request to that URI is valid and
+// satisfies all conditions.
+func (svc *Service) RegisterExternalValidator(fullMethod string,
+        validator MacaroonValidator) error <span class="cov0" title="0">{
+
+        if validator == nil </span><span class="cov0" title="0">{
+                return fmt.Errorf("validator cannot be nil")
+        }</span>
+
+        <span class="cov0" title="0">_, ok := svc.ExternalValidators[fullMethod]
+        if ok </span><span class="cov0" title="0">{
+                return fmt.Errorf("external validator for method %s already "+
+                        "registered", fullMethod)
+        }</span>
+
+        <span class="cov0" title="0">svc.ExternalValidators[fullMethod] = validator
+        return nil</span>
+}
+
+// ValidateMacaroon validates the capabilities of a given request given a
+// bakery service, context, and uri. Within the passed context.Context, we
+// expect a macaroon to be encoded as request metadata using the key
+// "macaroon".
+func (svc *Service) ValidateMacaroon(ctx context.Context,
+        requiredPermissions []bakery.Op, fullMethod string) error <span class="cov0" title="0">{
+
+        // Get macaroon bytes from context and unmarshal into macaroon.
+        macHex, err := RawMacaroonFromContext(ctx)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        // With the macaroon obtained, we'll now decode the hex-string encoding.
+        <span class="cov0" title="0">macBytes, err := hex.DecodeString(macHex)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return svc.CheckMacAuth(
+                ctx, macBytes, requiredPermissions, fullMethod,
+        )</span>
+}
+
+// CheckMacAuth checks that the macaroon is not disobeying any caveats and is
+// authorized to perform the operation the user wants to perform.
+func (svc *Service) CheckMacAuth(ctx context.Context, macBytes []byte,
+        requiredPermissions []bakery.Op, fullMethod string) error <span class="cov0" title="0">{
+
+        // With the macaroon obtained, we'll now unmarshal it from binary into
+        // its concrete struct representation.
+        mac := &amp;macaroon.Macaroon{}
+        err := mac.UnmarshalBinary(macBytes)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        // Ensure that the macaroon is using the exact same version as we
+        // expect. In the future, we can relax this check to phase in new
+        // versions.
+        <span class="cov0" title="0">if mac.Version() != macaroon.V2 </span><span class="cov0" title="0">{
+                return fmt.Errorf("%w: %v", ErrUnknownVersion,
+                        mac.Version())
+        }</span>
+
+        // Run a similar version check on the ID used for the macaroon as well.
+        <span class="cov0" title="0">const minIDLength = 1
+        if len(mac.Id()) &lt; minIDLength </span><span class="cov0" title="0">{
+                return ErrInvalidID
+        }</span>
+        <span class="cov0" title="0">if mac.Id()[0] != byte(bakery.Version3) </span><span class="cov0" title="0">{
+                return ErrInvalidID
+        }</span>
+
+        // Check the method being called against the permitted operation, the
+        // expiration time and IP address and return the result.
+        <span class="cov0" title="0">authChecker := svc.Checker.Auth(macaroon.Slice{mac})
+        _, err = authChecker.Allow(ctx, requiredPermissions...)
+
+        // If the macaroon contains broad permissions and checks out, we're
+        // done.
+        if err == nil </span><span class="cov0" title="0">{
+                return nil
+        }</span>
+
+        // To also allow the special permission of "uri:&lt;FullMethod&gt;" to be a
+        // valid permission, we need to check it manually in case there is no
+        // broader scope permission defined.
+        <span class="cov0" title="0">_, err = authChecker.Allow(ctx, bakery.Op{
+                Entity: PermissionEntityCustomURI,
+                Action: fullMethod,
+        })
+        return err</span>
+}
+
+// Close closes the database that underlies the RootKeyStore and zeroes the
+// encryption keys.
+func (svc *Service) Close() error <span class="cov0" title="0">{
+        if boltRKS, ok := svc.rks.(ExtendedRootKeyStore); ok </span><span class="cov0" title="0">{
+                return boltRKS.Close()
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+// CreateUnlock calls the underlying root key store's CreateUnlock and returns
+// the result.
+func (svc *Service) CreateUnlock(password *[]byte) error <span class="cov0" title="0">{
+        if boltRKS, ok := svc.rks.(ExtendedRootKeyStore); ok </span><span class="cov0" title="0">{
+                return boltRKS.CreateUnlock(password)
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+// NewMacaroon wraps around the function Oven.NewMacaroon with the defaults,
+//   - version is always bakery.LatestVersion;
+//   - caveats is always nil.
+//
+// In addition, it takes a rootKeyID parameter, and puts it into the context.
+// The context is passed through Oven.NewMacaroon(), in which calls the function
+// RootKey(), that reads the context for rootKeyID.
+func (svc *Service) NewMacaroon(
+        ctx context.Context, rootKeyID []byte,
+        ops ...bakery.Op) (*bakery.Macaroon, error) <span class="cov0" title="0">{
+
+        // Check rootKeyID is not called with nil or empty bytes. We want the
+        // caller to be aware the value of root key ID used, so we won't replace
+        // it with the DefaultRootKeyID if not specified.
+        if len(rootKeyID) == 0 </span><span class="cov0" title="0">{
+                return nil, ErrMissingRootKeyID
+        }</span>
+
+        // Pass the root key ID to context.
+        <span class="cov0" title="0">ctx = ContextWithRootKeyID(ctx, rootKeyID)
+
+        return svc.Oven.NewMacaroon(ctx, bakery.LatestVersion, nil, ops...)</span>
+}
+
+// ListMacaroonIDs returns all the root key ID values except the value of
+// encryptedKeyID.
+func (svc *Service) ListMacaroonIDs(ctxt context.Context) ([][]byte, error) <span class="cov0" title="0">{
+        if boltRKS, ok := svc.rks.(ExtendedRootKeyStore); ok </span><span class="cov0" title="0">{
+                return boltRKS.ListMacaroonIDs(ctxt)
+        }</span>
+
+        <span class="cov0" title="0">return nil, nil</span>
+}
+
+// DeleteMacaroonID removes one specific root key ID. If the root key ID is
+// found and deleted, it will be returned.
+func (svc *Service) DeleteMacaroonID(ctxt context.Context,
+        rootKeyID []byte) ([]byte, error) <span class="cov0" title="0">{
+
+        if boltRKS, ok := svc.rks.(ExtendedRootKeyStore); ok </span><span class="cov0" title="0">{
+                return boltRKS.DeleteMacaroonID(ctxt, rootKeyID)
+        }</span>
+
+        <span class="cov0" title="0">return nil, nil</span>
+}
+
+// GenerateNewRootKey calls the underlying root key store's GenerateNewRootKey
+// and returns the result.
+func (svc *Service) GenerateNewRootKey() error <span class="cov0" title="0">{
+        if boltRKS, ok := svc.rks.(ExtendedRootKeyStore); ok </span><span class="cov0" title="0">{
+                return boltRKS.GenerateNewRootKey()
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+// SetRootKey calls the underlying root key store's SetRootKey and returns the
+// result.
+func (svc *Service) SetRootKey(rootKey []byte) error <span class="cov0" title="0">{
+        if boltRKS, ok := svc.rks.(ExtendedRootKeyStore); ok </span><span class="cov0" title="0">{
+                return boltRKS.SetRootKey(rootKey)
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+// ChangePassword calls the underlying root key store's ChangePassword and
+// returns the result.
+func (svc *Service) ChangePassword(oldPw, newPw []byte) error <span class="cov0" title="0">{
+        if boltRKS, ok := svc.rks.(ExtendedRootKeyStore); ok </span><span class="cov0" title="0">{
+                return boltRKS.ChangePassword(oldPw, newPw)
+        }</span>
+
+        <span class="cov0" title="0">return nil</span>
+}
+
+// RawMacaroonFromContext is a helper function that extracts a raw macaroon
+// from the given incoming gRPC request context.
+func RawMacaroonFromContext(ctx context.Context) (string, error) <span class="cov0" title="0">{
+        // Get macaroon bytes from context and unmarshal into macaroon.
+        md, ok := metadata.FromIncomingContext(ctx)
+        if !ok </span><span class="cov0" title="0">{
+                return "", fmt.Errorf("unable to get metadata from context")
+        }</span>
+        <span class="cov0" title="0">if len(md["macaroon"]) != 1 </span><span class="cov0" title="0">{
+                return "", fmt.Errorf("expected 1 macaroon, got %d",
+                        len(md["macaroon"]))
+        }</span>
+
+        <span class="cov0" title="0">return md["macaroon"][0], nil</span>
+}
+
+// SafeCopyMacaroon creates a copy of a macaroon that is safe to be used and
+// modified. This is necessary because the macaroon library's own Clone() method
+// is unsafe for certain edge cases, resulting in both the cloned and the
+// original macaroons to be modified.
+func SafeCopyMacaroon(mac *macaroon.Macaroon) (*macaroon.Macaroon, error) <span class="cov0" title="0">{
+        macBytes, err := mac.MarshalBinary()
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">newMac := &amp;macaroon.Macaroon{}
+        if err := newMac.UnmarshalBinary(macBytes); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">return newMac, nil</span>
+}
+</pre>
+		
+		<pre class="file" id="file19" style="display: none">package macaroons
+
+import (
+        "bytes"
+        "context"
+        "crypto/rand"
+        "fmt"
+        "io"
+        "sync"
+
+        "github.com/btcsuite/btcwallet/snacl"
+        "github.com/btcsuite/btcwallet/walletdb"
+        "github.com/lightningnetwork/lnd/kvdb"
+)
+
+const (
+        // RootKeyLen is the length of a root key.
+        RootKeyLen = 32
+)
+
+var (
+        // rootKeyBucketName is the name of the root key store bucket.
+        rootKeyBucketName = []byte("macrootkeys")
+
+        // DefaultRootKeyID is the ID of the default root key. The first is
+        // just 0, to emulate the memory storage that comes with bakery.
+        DefaultRootKeyID = []byte("0")
+
+        // encryptionKeyID is the name of the database key that stores the
+        // encryption key, encrypted with a salted + hashed password. The
+        // format is 32 bytes of salt, and the rest is encrypted key.
+        encryptionKeyID = []byte("enckey")
+
+        // ErrAlreadyUnlocked specifies that the store has already been
+        // unlocked.
+        ErrAlreadyUnlocked = fmt.Errorf("macaroon store already unlocked")
+
+        // ErrStoreLocked specifies that the store needs to be unlocked with
+        // a password.
+        ErrStoreLocked = fmt.Errorf("macaroon store is locked")
+
+        // ErrPasswordRequired specifies that a nil password has been passed.
+        ErrPasswordRequired = fmt.Errorf("a non-nil password is required")
+
+        // ErrKeyValueForbidden is used when the root key ID uses encryptedKeyID as
+        // its value.
+        ErrKeyValueForbidden = fmt.Errorf("root key ID value is not allowed")
+
+        // ErrRootKeyBucketNotFound specifies that there is no macaroon root key
+        // bucket yet which can/should only happen if the store has been
+        // corrupted or was initialized incorrectly.
+        ErrRootKeyBucketNotFound = fmt.Errorf("root key bucket not found")
+
+        // ErrEncKeyNotFound specifies that there was no encryption key found
+        // even if one was expected to be generated.
+        ErrEncKeyNotFound = fmt.Errorf("macaroon encryption key not found")
+
+        // ErrDefaultRootKeyNotFound is returned when the default root key is
+        // not found in the DB when it is expected to be.
+        ErrDefaultRootKeyNotFound = fmt.Errorf("default root key not found")
+)
+
+// RootKeyStorage implements the bakery.RootKeyStorage interface.
+type RootKeyStorage struct {
+        kvdb.Backend
+
+        encKeyMtx sync.RWMutex
+        encKey    *snacl.SecretKey
+}
+
+// NewRootKeyStorage creates a RootKeyStorage instance.
+func NewRootKeyStorage(db kvdb.Backend) (*RootKeyStorage, error) <span class="cov0" title="0">{
+        // If the store's bucket doesn't exist, create it.
+        err := kvdb.Update(db, func(tx kvdb.RwTx) error </span><span class="cov0" title="0">{
+                _, err := tx.CreateTopLevelBucket(rootKeyBucketName)
+                return err
+        }</span>, func() {<span class="cov0" title="0">}</span>)
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        // Return the DB wrapped in a RootKeyStorage object.
+        <span class="cov0" title="0">return &amp;RootKeyStorage{
+                Backend: db,
+                encKey:  nil,
+        }, nil</span>
+}
+
+// CreateUnlock sets an encryption key if one is not already set, otherwise it
+// checks if the password is correct for the stored encryption key.
+func (r *RootKeyStorage) CreateUnlock(password *[]byte) error <span class="cov0" title="0">{
+        r.encKeyMtx.Lock()
+        defer r.encKeyMtx.Unlock()
+
+        // Check if we've already unlocked the store; return an error if so.
+        if r.encKey != nil </span><span class="cov0" title="0">{
+                return ErrAlreadyUnlocked
+        }</span>
+
+        // Check if a nil password has been passed; return an error if so.
+        <span class="cov0" title="0">if password == nil </span><span class="cov0" title="0">{
+                return ErrPasswordRequired
+        }</span>
+
+        <span class="cov0" title="0">return kvdb.Update(r.Backend, func(tx kvdb.RwTx) error </span><span class="cov0" title="0">{
+                bucket := tx.ReadWriteBucket(rootKeyBucketName)
+                if bucket == nil </span><span class="cov0" title="0">{
+                        return ErrRootKeyBucketNotFound
+                }</span>
+                <span class="cov0" title="0">dbKey := bucket.Get(encryptionKeyID)
+                if len(dbKey) &gt; 0 </span><span class="cov0" title="0">{
+                        // We've already stored a key, so try to unlock with
+                        // the password.
+                        encKey := &amp;snacl.SecretKey{}
+                        err := encKey.Unmarshal(dbKey)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+
+                        <span class="cov0" title="0">err = encKey.DeriveKey(password)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+
+                        <span class="cov0" title="0">r.encKey = encKey
+                        return nil</span>
+                }
+
+                // We haven't yet stored a key, so create a new one.
+                <span class="cov0" title="0">encKey, err := snacl.NewSecretKey(
+                        password, scryptN, scryptR, scryptP,
+                )
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">err = bucket.Put(encryptionKeyID, encKey.Marshal())
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">r.encKey = encKey
+                return nil</span>
+        }, func() {<span class="cov0" title="0">}</span>)
+}
+
+// ChangePassword decrypts all the macaroon root keys with the old password and
+// then encrypts them again with the new password.
+func (r *RootKeyStorage) ChangePassword(oldPw, newPw []byte) error <span class="cov0" title="0">{
+        // We need the store to already be unlocked. With this we can make sure
+        // that there already is a key in the DB.
+        if r.encKey == nil </span><span class="cov0" title="0">{
+                return ErrStoreLocked
+        }</span>
+
+        // Check if a nil password has been passed; return an error if so.
+        <span class="cov0" title="0">if oldPw == nil || newPw == nil </span><span class="cov0" title="0">{
+                return ErrPasswordRequired
+        }</span>
+
+        <span class="cov0" title="0">return kvdb.Update(r.Backend, func(tx kvdb.RwTx) error </span><span class="cov0" title="0">{
+                bucket := tx.ReadWriteBucket(rootKeyBucketName)
+                if bucket == nil </span><span class="cov0" title="0">{
+                        return ErrRootKeyBucketNotFound
+                }</span>
+
+                // The encryption key must be present, otherwise we are in the
+                // wrong state to change the password.
+                <span class="cov0" title="0">encKeyDB := bucket.Get(encryptionKeyID)
+                if len(encKeyDB) == 0 </span><span class="cov0" title="0">{
+                        return ErrEncKeyNotFound
+                }</span>
+
+                // Unmarshal parameters for old encryption key and derive the
+                // old key with them.
+                <span class="cov0" title="0">encKeyOld := &amp;snacl.SecretKey{}
+                err := encKeyOld.Unmarshal(encKeyDB)
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov0" title="0">err = encKeyOld.DeriveKey(&amp;oldPw)
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                // Create a new encryption key from the new password.
+                <span class="cov0" title="0">encKeyNew, err := snacl.NewSecretKey(
+                        &amp;newPw, scryptN, scryptR, scryptP,
+                )
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                // foundDefaultRootKey is used to keep track of if we have
+                // found and re-encrypted the default root key so that we can
+                // return an error if it is not found.
+                <span class="cov0" title="0">var foundDefaultRootKey bool
+                err = bucket.ForEach(func(k, v []byte) error </span><span class="cov0" title="0">{
+                        // Skip the key if it is the encryption key ID since
+                        // we do not want to re-encrypt this.
+                        if bytes.Equal(k, encryptionKeyID) </span><span class="cov0" title="0">{
+                                return nil
+                        }</span>
+
+                        <span class="cov0" title="0">if bytes.Equal(k, DefaultRootKeyID) </span><span class="cov0" title="0">{
+                                foundDefaultRootKey = true
+                        }</span>
+
+                        // Now try to decrypt the root key with the old
+                        // encryption key, encrypt it with the new one and then
+                        // store it in the DB.
+                        <span class="cov0" title="0">decryptedKey, err := encKeyOld.Decrypt(v)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+
+                        <span class="cov0" title="0">encryptedKey, err := encKeyNew.Encrypt(decryptedKey)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+
+                        <span class="cov0" title="0">return bucket.Put(k, encryptedKey)</span>
+                })
+                <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">if !foundDefaultRootKey </span><span class="cov0" title="0">{
+                        return ErrDefaultRootKeyNotFound
+                }</span>
+
+                // Finally, store the new encryption key parameters in the DB
+                // as well.
+                <span class="cov0" title="0">err = bucket.Put(encryptionKeyID, encKeyNew.Marshal())
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">r.encKey = encKeyNew
+                return nil</span>
+        }, func() {<span class="cov0" title="0">}</span>)
+}
+
+// Get implements the Get method for the bakery.RootKeyStorage interface.
+func (r *RootKeyStorage) Get(_ context.Context, id []byte) ([]byte, error) <span class="cov0" title="0">{
+        r.encKeyMtx.RLock()
+        defer r.encKeyMtx.RUnlock()
+
+        if r.encKey == nil </span><span class="cov0" title="0">{
+                return nil, ErrStoreLocked
+        }</span>
+        <span class="cov0" title="0">var rootKey []byte
+        err := kvdb.View(r.Backend, func(tx kvdb.RTx) error </span><span class="cov0" title="0">{
+                bucket := tx.ReadBucket(rootKeyBucketName)
+                if bucket == nil </span><span class="cov0" title="0">{
+                        return ErrRootKeyBucketNotFound
+                }</span>
+                <span class="cov0" title="0">dbKey := bucket.Get(id)
+                if len(dbKey) == 0 </span><span class="cov0" title="0">{
+                        return fmt.Errorf("root key with id %s doesn't exist",
+                                string(id))
+                }</span>
+
+                <span class="cov0" title="0">decKey, err := r.encKey.Decrypt(dbKey)
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                <span class="cov0" title="0">rootKey = make([]byte, len(decKey))
+                copy(rootKey[:], decKey)
+                return nil</span>
+        }, func() <span class="cov0" title="0">{
+                rootKey = nil
+        }</span>)
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">return rootKey, nil</span>
+}
+
+// RootKey implements the RootKey method for the bakery.RootKeyStorage
+// interface.
+func (r *RootKeyStorage) RootKey(ctx context.Context) ([]byte, []byte, error) <span class="cov0" title="0">{
+        r.encKeyMtx.RLock()
+        defer r.encKeyMtx.RUnlock()
+
+        if r.encKey == nil </span><span class="cov0" title="0">{
+                return nil, nil, ErrStoreLocked
+        }</span>
+        <span class="cov0" title="0">var rootKey []byte
+
+        // Read the root key ID from the context. If no key is specified in the
+        // context, an error will be returned.
+        id, err := RootKeyIDFromContext(ctx)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, nil, err
+        }</span>
+
+        <span class="cov0" title="0">if bytes.Equal(id, encryptionKeyID) </span><span class="cov0" title="0">{
+                return nil, nil, ErrKeyValueForbidden
+        }</span>
+
+        <span class="cov0" title="0">err = kvdb.Update(r.Backend, func(tx kvdb.RwTx) error </span><span class="cov0" title="0">{
+                bucket := tx.ReadWriteBucket(rootKeyBucketName)
+                if bucket == nil </span><span class="cov0" title="0">{
+                        return ErrRootKeyBucketNotFound
+                }</span>
+                <span class="cov0" title="0">dbKey := bucket.Get(id)
+
+                // If there's a root key stored in the bucket, decrypt it and
+                // return it.
+                if len(dbKey) != 0 </span><span class="cov0" title="0">{
+                        decKey, err := r.encKey.Decrypt(dbKey)
+                        if err != nil </span><span class="cov0" title="0">{
+                                return err
+                        }</span>
+
+                        <span class="cov0" title="0">rootKey = make([]byte, len(decKey))
+                        copy(rootKey[:], decKey[:])
+                        return nil</span>
+                }
+
+                // Otherwise, create a new root key, encrypt it,
+                // and store it in the bucket.
+                <span class="cov0" title="0">newKey, err := generateAndStoreNewRootKey(bucket, id, r.encKey)
+                rootKey = newKey
+                return err</span>
+        }, func() <span class="cov0" title="0">{
+                rootKey = nil
+        }</span>)
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                return nil, nil, err
+        }</span>
+
+        <span class="cov0" title="0">return rootKey, id, nil</span>
+}
+
+// GenerateNewRootKey generates a new macaroon root key, replacing the previous
+// root key if it existed.
+func (r *RootKeyStorage) GenerateNewRootKey() error <span class="cov0" title="0">{
+        // We need the store to already be unlocked. With this we can make sure
+        // that there already is a key in the DB that can be replaced.
+        if r.encKey == nil </span><span class="cov0" title="0">{
+                return ErrStoreLocked
+        }</span>
+        <span class="cov0" title="0">return kvdb.Update(r.Backend, func(tx kvdb.RwTx) error </span><span class="cov0" title="0">{
+                bucket := tx.ReadWriteBucket(rootKeyBucketName)
+                if bucket == nil </span><span class="cov0" title="0">{
+                        return ErrRootKeyBucketNotFound
+                }</span>
+
+                // The default root key should be created even if it does not
+                // yet exist, so we do this separately from the rest of the
+                // root keys.
+                <span class="cov0" title="0">_, err := generateAndStoreNewRootKey(
+                        bucket, DefaultRootKeyID, r.encKey,
+                )
+                if err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+
+                // Now iterate over all the other root keys that may exist
+                // and re-generate each of them.
+                <span class="cov0" title="0">return bucket.ForEach(func(k, v []byte) error </span><span class="cov0" title="0">{
+                        if bytes.Equal(k, encryptionKeyID) </span><span class="cov0" title="0">{
+                                return nil
+                        }</span>
+
+                        <span class="cov0" title="0">if bytes.Equal(k, DefaultRootKeyID) </span><span class="cov0" title="0">{
+                                return nil
+                        }</span>
+
+                        <span class="cov0" title="0">_, err := generateAndStoreNewRootKey(
+                                bucket, k, r.encKey,
+                        )
+
+                        return err</span>
+                })
+        }, func() {<span class="cov0" title="0">}</span>)
+}
+
+// SetRootKey sets the default macaroon root key, replacing the previous root
+// key if it existed.
+func (r *RootKeyStorage) SetRootKey(rootKey []byte) error <span class="cov0" title="0">{
+        if r.encKey == nil </span><span class="cov0" title="0">{
+                return ErrStoreLocked
+        }</span>
+        <span class="cov0" title="0">if len(rootKey) != RootKeyLen </span><span class="cov0" title="0">{
+                return fmt.Errorf("root key must be %v bytes",
+                        RootKeyLen)
+        }</span>
+
+        <span class="cov0" title="0">encryptedKey, err := r.encKey.Encrypt(rootKey)
+        if err != nil </span><span class="cov0" title="0">{
+                return err
+        }</span>
+
+        <span class="cov0" title="0">return kvdb.Update(r.Backend, func(tx kvdb.RwTx) error </span><span class="cov0" title="0">{
+                bucket := tx.ReadWriteBucket(rootKeyBucketName)
+                if bucket == nil </span><span class="cov0" title="0">{
+                        return ErrRootKeyBucketNotFound
+                }</span>
+
+                <span class="cov0" title="0">return bucket.Put(DefaultRootKeyID, encryptedKey)</span>
+        }, func() {<span class="cov0" title="0">}</span>)
+}
+
+// Close closes the underlying database and zeroes the encryption key stored
+// in memory.
+func (r *RootKeyStorage) Close() error <span class="cov0" title="0">{
+        r.encKeyMtx.Lock()
+        defer r.encKeyMtx.Unlock()
+
+        if r.encKey != nil </span><span class="cov0" title="0">{
+                r.encKey.Zero()
+                r.encKey = nil
+        }</span>
+
+        // Since we're not responsible for _creating_ the connection to our DB
+        // backend, we also shouldn't close it. This should be handled
+        // externally as to not interfere with remote DB connections in case we
+        // need to open/close the store twice as happens in the password change
+        // case.
+        <span class="cov0" title="0">return nil</span>
+}
+
+// generateAndStoreNewRootKey creates a new random RootKeyLen-byte root key,
+// encrypts it with the given encryption key and stores it in the bucket.
+// Any previously set key will be overwritten.
+func generateAndStoreNewRootKey(bucket walletdb.ReadWriteBucket, id []byte,
+        key *snacl.SecretKey) ([]byte, error) <span class="cov0" title="0">{
+
+        rootKey := make([]byte, RootKeyLen)
+        if _, err := io.ReadFull(rand.Reader, rootKey); err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">encryptedKey, err := key.Encrypt(rootKey)
+        if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+        <span class="cov0" title="0">return rootKey, bucket.Put(id, encryptedKey)</span>
+}
+
+// ListMacaroonIDs returns all the root key ID values except the value of
+// encryptedKeyID.
+func (r *RootKeyStorage) ListMacaroonIDs(_ context.Context) ([][]byte, error) <span class="cov0" title="0">{
+        r.encKeyMtx.RLock()
+        defer r.encKeyMtx.RUnlock()
+
+        // Check it's unlocked.
+        if r.encKey == nil </span><span class="cov0" title="0">{
+                return nil, ErrStoreLocked
+        }</span>
+
+        <span class="cov0" title="0">var rootKeySlice [][]byte
+
+        // Read all the items in the bucket and append the keys, which are the
+        // root key IDs we want.
+        err := kvdb.View(r.Backend, func(tx kvdb.RTx) error </span><span class="cov0" title="0">{
+                // appendRootKey is a function closure that appends root key ID
+                // to rootKeySlice.
+                appendRootKey := func(k, _ []byte) error </span><span class="cov0" title="0">{
+                        // Only append when the key value is not encryptedKeyID.
+                        if !bytes.Equal(k, encryptionKeyID) </span><span class="cov0" title="0">{
+                                rootKeySlice = append(rootKeySlice, k)
+                        }</span>
+                        <span class="cov0" title="0">return nil</span>
+                }
+
+                <span class="cov0" title="0">return tx.ReadBucket(rootKeyBucketName).ForEach(appendRootKey)</span>
+        }, func() <span class="cov0" title="0">{
+                rootKeySlice = nil
+        }</span>)
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">return rootKeySlice, nil</span>
+}
+
+// DeleteMacaroonID removes one specific root key ID. If the root key ID is
+// found and deleted, it will be returned.
+func (r *RootKeyStorage) DeleteMacaroonID(
+        _ context.Context, rootKeyID []byte) ([]byte, error) <span class="cov0" title="0">{
+
+        r.encKeyMtx.RLock()
+        defer r.encKeyMtx.RUnlock()
+
+        // Check it's unlocked.
+        if r.encKey == nil </span><span class="cov0" title="0">{
+                return nil, ErrStoreLocked
+        }</span>
+
+        // Check the rootKeyID is not empty.
+        <span class="cov0" title="0">if len(rootKeyID) == 0 </span><span class="cov0" title="0">{
+                return nil, ErrMissingRootKeyID
+        }</span>
+
+        // Deleting encryptedKeyID or DefaultRootKeyID is not allowed.
+        <span class="cov0" title="0">if bytes.Equal(rootKeyID, encryptionKeyID) ||
+                bytes.Equal(rootKeyID, DefaultRootKeyID) </span><span class="cov0" title="0">{
+
+                return nil, ErrDeletionForbidden
+        }</span>
+
+        <span class="cov0" title="0">var rootKeyIDDeleted []byte
+        err := kvdb.Update(r.Backend, func(tx kvdb.RwTx) error </span><span class="cov0" title="0">{
+                bucket := tx.ReadWriteBucket(rootKeyBucketName)
+
+                // Check the key can be found. If not, return nil.
+                if bucket.Get(rootKeyID) == nil </span><span class="cov0" title="0">{
+                        return nil
+                }</span>
+
+                // Once the key is found, we do the deletion.
+                <span class="cov0" title="0">if err := bucket.Delete(rootKeyID); err != nil </span><span class="cov0" title="0">{
+                        return err
+                }</span>
+                <span class="cov0" title="0">rootKeyIDDeleted = rootKeyID
+
+                return nil</span>
+        }, func() <span class="cov0" title="0">{
+                rootKeyIDDeleted = nil
+        }</span>)
+        <span class="cov0" title="0">if err != nil </span><span class="cov0" title="0">{
+                return nil, err
+        }</span>
+
+        <span class="cov0" title="0">return rootKeyIDDeleted, nil</span>
+}
+</pre>
+		
+		</div>
+	</body>
+	<script>
+	(function() {
+		var files = document.getElementById('files');
+		var visible;
+		files.addEventListener('change', onChange, false);
+		function select(part) {
+			if (visible)
+				visible.style.display = 'none';
+			visible = document.getElementById(part);
+			if (!visible)
+				return;
+			files.value = part;
+			visible.style.display = 'block';
+			location.hash = part;
+		}
+		function onChange() {
+			select(files.value);
+			window.scrollTo(0, 0);
+		}
+		if (location.hash != "") {
+			select(location.hash.substr(1));
+		}
+		if (!visible) {
+			select("file0");
+		}
+	})();
+	</script>
+</html>
