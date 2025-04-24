@@ -1,0 +1,9 @@
+panic: test panic message for demonstration
+
+goroutine 1 [running]:
+testing.tRunner.func1.2(0x1100000, 0x1200000)
+    /usr/local/go/src/testing/testing.go:1142 +0x25a
+github.com/lightningnetwork/lnd/example.FuzzTestBug(0x2000000)
+    /workspace/lnd-fuzz-poc/lnd/example/fuzz_test.go:42 +0x123
+testing.(*F).Fuzz(0x3000000)
+    /usr/local/go/src/testing/fuzz.go:330 +0x5a1
