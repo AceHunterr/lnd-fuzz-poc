@@ -1,0 +1,44 @@
+name: Continuous Fuzzing
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # Setting the schedule to midnight
+  workflow_dispatch:  
+
+jobs:
+  fuzz:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        submodules: recursive
+        
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.21'
+        
+    - name: Sync repositories
+      run: ./scripts/sync.sh
+      
+    - name: Run fuzz targets
+      run: ./scripts/discover-and-run.sh
+      
+    - name: Detect bugs
+      run: ./scripts/bug-detection.sh
+      
+    - name: Generate coverage reports
+      run: ./scripts/code-coverage.sh
+      
+    - name: Update corpus
+      run: ./scripts/update-corpus.sh
+      
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: fuzzing-results
+        path: |
+          fuzz-bugs/
+          coverage-reports/
+          logs/

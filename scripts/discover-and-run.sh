@@ -47,22 +47,16 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 
-# ----------------------
-# BEGIN LOGGING SETUP
-# ----------------------
+# LOGGING SETUP
 LOG_DIR="${SCRIPT_DIR}/../results"
 mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/discover-and-run-$(date +%Y%m%d-%H%M%S).log"
 exec > >(tee -a "$LOG_FILE") 2>&1
-# ----------------------
-# END LOGGING SETUP
-# ----------------------
 
 
 # How many seconds to fuzz each, default 10
 FUZZ_TIME=${1:-10}
 
-# Locate directories
 REPO_ROOT="${SCRIPT_DIR}/.."
 LND_ROOT="${REPO_ROOT}/lnd"
 
@@ -95,7 +89,6 @@ for file in "${FUZZ_FILES[@]}"; do
     echo "=== Fuzzing $FN in $pkg_dir for ${FUZZ_TIME}s ==="
     (
       cd "$pkg_dir"
-      # Anchored regex (^…$) ensures only this one target matches
       go test . \
         -fuzz="^${FN}$" \
         -fuzztime="${FUZZ_TIME}s" \

@@ -1,5 +1,4 @@
 #!/bin/bash
-# simplified-bug-detection.sh
 
 echo "Starting fuzz bug detection..."
 
@@ -11,19 +10,16 @@ mkdir -p "$BUGS_DIR"
 FUZZ_DIR="../lnd-fuzz/corpora"
 echo "Looking for corpus directories in: $FUZZ_DIR"
 
-# Track if we found any bugs
 FOUND_BUGS=0
 
-# First, create a sample bug for testing
 echo "Creating a sample bug for testing..."
 TEST_TARGET="FuzzTestBug"
 TEST_CRASHER_DIR="$FUZZ_DIR/$TEST_TARGET/crashers"
 mkdir -p "$TEST_CRASHER_DIR"
 
-# Create a sample crash file
+# Create a sample crash file for demonstration purposes
 echo "sample crash input data" > "$TEST_CRASHER_DIR/crash1"
 
-# Create a corresponding output file with panic information
 cat > "$TEST_CRASHER_DIR/crash1.output" <<EOL
 panic: test panic message for demonstration
 
@@ -38,23 +34,21 @@ EOL
 
 echo "Sample bug created at $TEST_CRASHER_DIR"
 
-# Process each fuzz target directory 
+# Processing each fuzz target directory 
 for TARGET_DIR in "$FUZZ_DIR"/*; do
-    # Skip if not a directory
+    
     [ ! -d "$TARGET_DIR" ] && continue
     
-    # Get target name from directory name
+    
     TARGET_NAME=${TARGET_DIR##*/}
     echo "Checking target: $TARGET_NAME"
     
-    # Check for crashers directory
+    
     CRASHER_DIR="$TARGET_DIR/crashers"
     if [ -d "$CRASHER_DIR" ]; then
         echo "Found crashers directory: $CRASHER_DIR"
         
-        # Check for crash files (non-output files)
         for CRASH_FILE in "$CRASHER_DIR"/*; do
-            # Skip if not a file or if it's an output/metadata file
             if [ -f "$CRASH_FILE" ] && [[ "$CRASH_FILE" != *.output ]] && [[ "$CRASH_FILE" != *.quoted ]]; then
                 CRASH_BASE=${CRASH_FILE##*/}
                 OUTPUT_FILE="$CRASH_FILE.output"
@@ -62,20 +56,16 @@ for TARGET_DIR in "$FUZZ_DIR"/*; do
                 if [ -f "$OUTPUT_FILE" ]; then
                     echo "Found crash: $CRASH_BASE in $TARGET_NAME"
                     
-                    # Generate a simple hash for bug ID
                     BUG_ID="${TARGET_NAME}_${CRASH_BASE}"
                     BUG_DIR="$BUGS_DIR/$BUG_ID"
                     mkdir -p "$BUG_DIR"
                     
-                    # Copy crash files
                     cp "$CRASH_FILE" "$BUG_DIR/input"
                     cp "$OUTPUT_FILE" "$BUG_DIR/output.log"
                     
-                    # Extract crash info from output
                     CRASH_TYPE="Unknown"
                     CRASH_LOCATION="Unknown"
                     
-                    # Very simple parsing with grep if available
                     if command -v grep &> /dev/null; then
                         if grep -q "panic:" "$OUTPUT_FILE"; then
                             CRASH_TYPE="Panic"
@@ -83,13 +73,11 @@ for TARGET_DIR in "$FUZZ_DIR"/*; do
                             CRASH_TYPE="Segmentation fault"
                         fi
                     else
-                        # Simple alternative without grep
                         if cat "$OUTPUT_FILE" | while read line; do [[ "$line" == *"panic:"* ]] && exit 0; done; then
                             CRASH_TYPE="Panic"
                         fi
                     fi
                     
-                    # Create a simple bug report
                     cat > "$BUG_DIR/report.md" <<EOL
 # Fuzz Bug Report: $TARGET_NAME
 
@@ -124,7 +112,6 @@ done
 echo "Creating summary report..."
 SUMMARY_FILE="$BUGS_DIR/summary.md"
 
-# Create summary with basic echo redirection
 cat > "$SUMMARY_FILE" <<EOL
 # Fuzz Testing Bug Summary
 
