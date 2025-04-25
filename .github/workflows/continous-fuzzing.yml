@@ -10,14 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
       with:
-          name: fuzzing-results
-          path: |
-            fuzz-bugs/
-            coverage-reports/
-            logs/
-        # submodules: recursive
+        submodules: recursive
         
     - name: Set up Go
       uses: actions/setup-go@v4
@@ -40,7 +35,7 @@ jobs:
       run: ./scripts/update-corpus.sh
       
     - name: Upload artifacts
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: fuzzing-results
         path: |
