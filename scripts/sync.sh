@@ -16,6 +16,6 @@ git checkout main
 git pull origin main
 cd ..
 
-git add lnd lnd-fuzz
-git commit -m "chore: update LND and fuzz-corpus submodules"
-git push origin master:main
+# git add lnd lnd-fuzz
+# git commit -m "chore: update LND and fuzz-corpus submodules"
+# git push origin master:main
